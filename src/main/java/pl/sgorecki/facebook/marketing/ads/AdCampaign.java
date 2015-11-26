@@ -6,7 +6,7 @@ import org.springframework.social.facebook.api.FacebookObject;
 /**
  * Model class representing an ad campaign.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdCampaign extends FacebookObject {
 	private String id;

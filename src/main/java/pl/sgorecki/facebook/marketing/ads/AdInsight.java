@@ -7,7 +7,7 @@ import java.util.List;
  * Class representing response object given by Ad Insights API for request
  * about AdAccount, AdCampaign, AdSet or Ad.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdInsight {
 	// id fields

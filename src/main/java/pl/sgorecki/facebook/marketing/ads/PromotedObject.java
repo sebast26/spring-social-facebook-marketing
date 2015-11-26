@@ -3,7 +3,7 @@ package pl.sgorecki.facebook.marketing.ads;
 import java.util.HashMap;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class PromotedObject extends HashMap<String, String> {
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class TargetingLocationSerializer extends JsonSerializer<TargetingLocation> {
 	@Override

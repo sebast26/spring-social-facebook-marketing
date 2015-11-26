@@ -7,7 +7,7 @@ import pl.sgorecki.facebook.marketing.ads.AdCreative;
 /**
  * Annotated mixin to add Jackson annotations to AdCreative.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract public class AdCreativeMixin {

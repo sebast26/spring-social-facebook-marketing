@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to Targeting.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize(using = TargetingSerializer.class)

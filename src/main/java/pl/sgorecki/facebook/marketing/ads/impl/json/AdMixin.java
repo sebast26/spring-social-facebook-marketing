@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Annotated mixin to add Jackson annotations to Ad.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdMixin {

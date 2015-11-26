@@ -7,7 +7,7 @@ import pl.sgorecki.facebook.marketing.ads.AdCampaign;
 /**
  * Annotated mixin to add Jackson annotations to AdCampaign.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract public class AdCampaignMixin {

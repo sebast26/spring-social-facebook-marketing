@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to AdSet.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract public class AdSetMixin {

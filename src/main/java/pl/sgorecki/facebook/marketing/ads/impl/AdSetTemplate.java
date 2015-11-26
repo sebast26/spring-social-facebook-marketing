@@ -11,7 +11,7 @@ import pl.sgorecki.facebook.marketing.ads.AdSet;
 import pl.sgorecki.facebook.marketing.ads.AdSetOperations;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSetOperations {
 	private GraphApi graphApi;

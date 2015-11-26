@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap;
 import pl.sgorecki.facebook.marketing.ads.*;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class CampaignTemplate extends AbstractFacebookAdsOperations implements CampaignOperations {
 

@@ -5,7 +5,7 @@ import org.springframework.social.facebook.api.FacebookObject;
 /**
  * Model class representing an ad account group.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdAccountGroup extends FacebookObject {
 	private String id;

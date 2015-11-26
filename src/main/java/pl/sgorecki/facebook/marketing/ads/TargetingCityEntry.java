@@ -1,7 +1,7 @@
 package pl.sgorecki.facebook.marketing.ads;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class TargetingCityEntry {
 	private String key;

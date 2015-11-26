@@ -12,7 +12,7 @@ import pl.sgorecki.facebook.marketing.ads.AdInsight;
 import pl.sgorecki.facebook.marketing.ads.AdOperations;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdTemplate extends AbstractFacebookAdsOperations implements AdOperations {
 

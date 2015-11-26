@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to AdInsight.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AdInsightMixin {

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Model class representing an ad user.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AdUser extends FacebookObject {
 	private String id;

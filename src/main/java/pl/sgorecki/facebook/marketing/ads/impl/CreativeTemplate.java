@@ -9,7 +9,7 @@ import pl.sgorecki.facebook.marketing.ads.AdCreative;
 import pl.sgorecki.facebook.marketing.ads.CreativeOperations;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class CreativeTemplate extends AbstractFacebookAdsOperations implements CreativeOperations {
 

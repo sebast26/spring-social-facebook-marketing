@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to TargetingLocation.
  *
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize(using = TargetingLocationSerializer.class)
