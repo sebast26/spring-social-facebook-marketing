@@ -47,10 +47,10 @@ public class FacebookAdsTemplate extends FacebookTemplate implements FacebookAds
 	}
 
 	private void initSubApis() {
-//		accountOperations = new AccountTemplate(this, isAuthorized());
-//		campaignOperations = new CampaignTemplate(this, isAuthorized());
-//		adSetOperations = new AdSetTemplate(this, getJsonMessageConverter().getObjectMapper(), isAuthorized());
-//		creativeOperations = new CreativeTemplate(this, getRestTemplate(), isAuthorized());
-//		adOperations = new AdTemplate(this, getRestTemplate(), getJsonMessageConverter().getObjectMapper(), isAuthorized());
+		accountOperations = new AccountTemplate(this, isAuthorized());
+		campaignOperations = new CampaignTemplate(this, isAuthorized());
+		adSetOperations = new AdSetTemplate(this, getJsonMessageConverter().getObjectMapper(), isAuthorized());
+		creativeOperations = new CreativeTemplate(this, getRestTemplate(), isAuthorized());
+		adOperations = new AdTemplate(this, getRestTemplate(), getJsonMessageConverter().getObjectMapper(), isAuthorized());
 	}
 }
