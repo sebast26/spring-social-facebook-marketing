@@ -51,9 +51,8 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 	public boolean updateAdCampaign(String campaignId, AdCampaign adCampaign) {
 		requireAuthorization();
 		MultiValueMap<String, Object> map = mapCommonFields(adCampaign);
-//		return graphApi.update(campaignId, map);
-		// TODO
-		return false;
+		graphApi.post(campaignId, map);
+		return true;
 	}
 
 	public void deleteAdCampaign(String campaignId) {

@@ -48,9 +48,8 @@ public class CreativeTemplate extends AbstractFacebookAdsOperations implements C
 		requireAuthorization();
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("name", name);
-		// TODO
-//		return graphApi.update(creativeId, data);
-		return false;
+		graphApi.post(creativeId, data);
+		return true;
 	}
 
 	public void deleteAdCreative(String creativeId) {

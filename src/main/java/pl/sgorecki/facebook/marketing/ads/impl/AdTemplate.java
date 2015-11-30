@@ -63,9 +63,8 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 	public boolean updateAd(String adId, Ad ad) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(ad);
-//		return graphApi.update(adId, data);
-		// TODO
-		return false;
+		graphApi.post(adId, data);
+		return true;
 	}
 
 	public void deleteAd(String adId) {

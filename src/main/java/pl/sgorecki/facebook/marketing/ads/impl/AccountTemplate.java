@@ -65,8 +65,7 @@ public class AccountTemplate extends AbstractFacebookAdsOperations implements Ac
 		if (adAccount.getSpendCap() != null) {
 			map.set("spend_cap", adAccount.getSpendCap());
 		}
-//		return graphApi.update(getAdAccountId(accountId), map);
-		// TODO
-		return false;
+		graphApi.post(getAdAccountId(accountId), map);
+		return true;
 	}
 }

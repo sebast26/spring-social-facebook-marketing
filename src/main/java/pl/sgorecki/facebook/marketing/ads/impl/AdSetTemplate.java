@@ -54,9 +54,8 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 	public boolean updateAdSet(String adSetId, AdSet adSet) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(adSet);
-//		return graphApi.update(adSetId, data);
-		// TODO
-		return false;
+		graphApi.post(adSetId, data);
+		return true;
 	}
 
 	public void deleteAdSet(String adSetId) {

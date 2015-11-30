@@ -2,8 +2,21 @@ package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.social.facebook.api.FacebookObject;
+import org.springframework.social.facebook.api.impl.json.FacebookModule;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,41 +26,110 @@ import java.util.Map;
  *
  * @author Sebastian Górecki
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AdAccount extends FacebookObject {
+	@JsonProperty("id")
 	private String id;
+
+	@JsonProperty("account_groups")
 	private List<AdAccountGroup> accountGroups;
+
+	@JsonProperty("account_id")
 	private long accountId;
-	private AccountStatus status;
+
+	@JsonProperty("account_status")
+	private AdAccount.AccountStatus status;
+
+	@JsonProperty("age")
 	private int age;
+
+	@JsonProperty("agency_client_declaration")
 	private AgencyClientDeclaration agencyClientDeclaration;
+
+	@JsonProperty("amount_spent")
 	private String amountSpent;
+
+	@JsonProperty("balance")
 	private String balance;
+
+	@JsonProperty("business_city")
 	private String businessCity;
+
+	@JsonProperty("business_country_code")
 	private String businessCountryCode;
+
+	@JsonProperty("business_name")
 	private String businessName;
+
+	@JsonProperty("business_state")
 	private String businessState;
+
+	@JsonProperty("business_street")
 	private String businessStreet;
+
+	@JsonProperty("business_street2")
 	private String businessStreet2;
+
+	@JsonProperty("business_zip")
 	private String businessZip;
-	private List<Capability> capabilities;
+
+	@JsonProperty("capabilities")
+	private List<AdAccount.Capability> capabilities;
+
+	@JsonProperty("created_time")
 	private Date createdTime;
+
+	@JsonProperty("currency")
 	private String currency;
+
+	@JsonProperty("daily_spend_limit")
 	private String dailySpendLimit;
+
+	@JsonProperty("end_advertiser")
 	private long endAdvertiser;
+
+	@JsonProperty("funding_source")
 	private String fundingSource;
+
+	@JsonProperty("funding_source_details")
 	private Map<String, Object> fundingSourceDetails;
+
+	@JsonProperty("is_personal")
 	private int isPersonal;
+
+	@JsonProperty("media_agency")
 	private long mediaAgency;
+
+	@JsonProperty("name")
 	private String name;
+
+	@JsonProperty("offsite_pixels_tos_accepted")
 	private boolean offsitePixelsTOSAccepted;
+
+	@JsonProperty("partner")
 	private long partner;
+
+	@JsonProperty("spend_cap")
 	private String spendCap;
+
+	@JsonProperty("timezone_id")
 	private int timezoneId;
+
+	@JsonProperty("timezone_name")
 	private String timezoneName;
+
+	@JsonProperty("timezone_offset_hours_utc")
 	private int timezoneOffsetHoursUTC;
+
+	@JsonProperty("tos_accepted")
 	private Map<String, Integer> tosAccepted;
+
+	@JsonProperty("users")
+	@JsonDeserialize(using = AdUserListDeserializer.class)
 	private List<AdUser> users;
-	private TaxStatus taxStatus;
+
+	@JsonProperty("tax_id_status")
+	private AdAccount.TaxStatus taxStatus;
 
 	public String getId() {
 		return id;
@@ -265,18 +347,65 @@ public class AdAccount extends FacebookObject {
 		}
 	}
 
+	private static class AdUserListDeserializer extends JsonDeserializer<List<AdUser>> {
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<AdUser> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.registerModule(new FacebookModule());
+			jp.setCodec(mapper);
+			if (jp.hasCurrentToken()) {
+				try {
+					JsonNode dataNode = jp.readValueAs(JsonNode.class).get("data");
+					if (dataNode != null) {
+						return (List<AdUser>) mapper.reader(new TypeReference<List<AdUser>>() {
+						}).readValue(dataNode);
+					}
+				} catch (IOException e) {
+					return Collections.emptyList();
+				}
+			}
+
+			return Collections.emptyList();
+		}
+	}
+
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	public class AgencyClientDeclaration {
+		@JsonProperty("agency_representing_client")
 		private int agencyRepresentingClient;
+
+		@JsonProperty("client_based_in_france")
 		private int clientBasedInFrance;
+
+		@JsonProperty("client_city")
 		private String clientCity;
+
+		@JsonProperty("client_country_code")
 		private String clientCountryCode;
+
+		@JsonProperty("client_email_address")
 		private String clientEmailAddress;
+
+		@JsonProperty("client_name")
 		private String clientName;
+
+		@JsonProperty("client_postal_code")
 		private String clientPostalCode;
+
+		@JsonProperty("client_province")
 		private String clientProvince;
+
+		@JsonProperty("client_street")
 		private String clientStreet;
+
+		@JsonProperty("client_street2")
 		private String clientStreet2;
+
+		@JsonProperty("has_written_mandate_from_advertiser")
 		private int hasWrittenMandateFromAdvertiser;
+
+		@JsonProperty("is_client_paying_invoices")
 		private int isClientPayingInvoices;
 
 		public int getAgencyRepresentingClient() {

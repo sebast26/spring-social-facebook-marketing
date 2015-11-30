@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author Sebastian Górecki
  */
-public class AbstractFacebookAdsOperations {
+class AbstractFacebookAdsOperations {
 	private final boolean isAuthorized;
 
 	public AbstractFacebookAdsOperations(boolean isAuthorized) {

@@ -1,6 +1,8 @@
 package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.facebook.api.FacebookObject;
 
 /**
@@ -8,13 +10,27 @@ import org.springframework.social.facebook.api.FacebookObject;
  *
  * @author Sebastian Górecki
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AdCampaign extends FacebookObject {
+	@JsonProperty("id")
 	private String id;
+
+	@JsonProperty("account_id")
 	private String accountId;
-	private BuyingType buyingType;
-	private CampaignStatus status;
+
+	@JsonProperty("buying_type")
+	private AdCampaign.BuyingType buyingType;
+
+	@JsonProperty("campaign_group_status")
+	private AdCampaign.CampaignStatus status;
+
+	@JsonProperty("name")
 	private String name;
-	private CampaignObjective objective;
+
+	@JsonProperty("objective")
+	private AdCampaign.CampaignObjective objective;
+
+	@JsonProperty("spend_cap")
 	private int spendCap;
 
 	public CampaignStatus getStatus() {
