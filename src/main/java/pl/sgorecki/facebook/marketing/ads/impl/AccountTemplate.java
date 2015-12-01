@@ -1,6 +1,5 @@
 package pl.sgorecki.facebook.marketing.ads.impl;
 
-import org.springframework.social.facebook.api.GraphApi;
 import org.springframework.social.facebook.api.PagedList;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -11,30 +10,30 @@ import pl.sgorecki.facebook.marketing.ads.*;
  */
 public class AccountTemplate extends AbstractFacebookAdsOperations implements AccountOperations {
 
-	private final GraphApi graphApi;
+	private final MarketingApi marketingApi;
 
-	public AccountTemplate(GraphApi graphApi, boolean isAuthorizedForUser) {
+	public AccountTemplate(MarketingApi marketingApi, boolean isAuthorizedForUser) {
 		super(isAuthorizedForUser);
-		this.graphApi = graphApi;
+		this.marketingApi = marketingApi;
 	}
 
 	public PagedList<AdAccount> getAdAccounts(String userId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(userId, "adaccounts", AdAccount.class, AD_ACCOUNT_FIELDS);
+		return marketingApi.fetchConnections(userId, "adaccounts", AdAccount.class, AD_ACCOUNT_FIELDS);
 	}
 
 	public AdAccount getAdAccount(String accountId) {
 		requireAuthorization();
-		return graphApi.fetchObject(getAdAccountId(accountId), AdAccount.class, AD_ACCOUNT_FIELDS);
+		return marketingApi.fetchObject(getAdAccountId(accountId), AdAccount.class, AD_ACCOUNT_FIELDS);
 	}
 
 	public PagedList<AdCampaign> getAdAccountCampaigns(String accountId) {
-		return graphApi.fetchConnections(getAdAccountId(accountId), "adcampaign_groups", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcampaign_groups", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
 	}
 
 	public PagedList<AdUser> getAdAccountUsers(String accountId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(getAdAccountId(accountId), "users", AdUser.class);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "users", AdUser.class);
 	}
 
 	public void addUserToAdAccount(String accountId, String userId, AdUser.AdUserRole role) {
@@ -42,17 +41,17 @@ public class AccountTemplate extends AbstractFacebookAdsOperations implements Ac
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		map.set("uid", userId);
 		map.set("role", String.valueOf(role.getValue()));
-		graphApi.post(getAdAccountId(accountId) + "/users", "", map);
+		marketingApi.post(getAdAccountId(accountId) + "/users", "", map);
 	}
 
 	public void deleteUserFromAdAccount(String accountId, String userId) {
 		requireAuthorization();
-		graphApi.delete(getAdAccountId(accountId) + "/users/" + userId);
+		marketingApi.delete(getAdAccountId(accountId) + "/users/" + userId);
 	}
 
 	public AdInsight getAdAccountInsight(String accountId) {
 		requireAuthorization();
-		PagedList<AdInsight> insights = graphApi.fetchConnections(getAdAccountId(accountId), "insights", AdInsight.class, AD_ACCOUNT_INSIGHT_FIELDS);
+		PagedList<AdInsight> insights = marketingApi.fetchConnections(getAdAccountId(accountId), "insights", AdInsight.class, AD_ACCOUNT_INSIGHT_FIELDS);
 		return insights.get(0);
 	}
 
@@ -65,7 +64,6 @@ public class AccountTemplate extends AbstractFacebookAdsOperations implements Ac
 		if (adAccount.getSpendCap() != null) {
 			map.set("spend_cap", adAccount.getSpendCap());
 		}
-		graphApi.post(getAdAccountId(accountId), map);
-		return true;
+		return marketingApi.update(getAdAccountId(accountId), map);
 	}
 }

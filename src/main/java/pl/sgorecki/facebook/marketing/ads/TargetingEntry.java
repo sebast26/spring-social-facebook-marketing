@@ -1,17 +1,10 @@
 package pl.sgorecki.facebook.marketing.ads;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author Sebastian Górecki
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class TargetingEntry {
-	@JsonProperty("id")
 	private long id;
-
-	@JsonProperty("name")
 	private String name;
 
 	public TargetingEntry() {

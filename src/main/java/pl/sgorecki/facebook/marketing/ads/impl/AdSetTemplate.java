@@ -2,45 +2,45 @@ package pl.sgorecki.facebook.marketing.ads.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.social.facebook.api.GraphApi;
 import org.springframework.social.facebook.api.PagedList;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import pl.sgorecki.facebook.marketing.ads.AdInsight;
 import pl.sgorecki.facebook.marketing.ads.AdSet;
 import pl.sgorecki.facebook.marketing.ads.AdSetOperations;
+import pl.sgorecki.facebook.marketing.ads.MarketingApi;
 
 /**
  * @author Sebastian Górecki
  */
 public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSetOperations {
-	private GraphApi graphApi;
+	private MarketingApi marketingApi;
 	private ObjectMapper mapper;
 
-	public AdSetTemplate(GraphApi graphApi, ObjectMapper mapper, boolean authorized) {
+	public AdSetTemplate(MarketingApi marketingApi, ObjectMapper mapper, boolean authorized) {
 		super(authorized);
-		this.graphApi = graphApi;
+		this.marketingApi = marketingApi;
 		this.mapper = mapper;
 	}
 
 	public PagedList<AdSet> getAccountAdSets(String accountId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(getAdAccountId(accountId), "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public PagedList<AdSet> getCampaignAdSets(String campaignId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(campaignId, "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchConnections(campaignId, "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public AdSet getAdSet(String id) {
 		requireAuthorization();
-		return graphApi.fetchObject(id, AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchObject(id, AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public AdInsight getAdSetInsight(String adSetId) {
 		requireAuthorization();
-		PagedList<AdInsight> insights = graphApi.fetchConnections(adSetId, "insights", AdInsight.class, AdSetOperations.AD_SET_INSIGHT_FIELDS);
+		PagedList<AdInsight> insights = marketingApi.fetchConnections(adSetId, "insights", AdInsight.class, AdSetOperations.AD_SET_INSIGHT_FIELDS);
 		return insights.get(0);
 	}
 
@@ -48,21 +48,20 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(adSet);
 		data.set("campaign_group_id", adSet.getCampaignId());
-		return graphApi.publish(getAdAccountId(accountId), "adcampaigns", data);
+		return marketingApi.publish(getAdAccountId(accountId), "adcampaigns", data);
 	}
 
 	public boolean updateAdSet(String adSetId, AdSet adSet) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(adSet);
-		graphApi.post(adSetId, data);
-		return true;
+		return marketingApi.update(adSetId, data);
 	}
 
 	public void deleteAdSet(String adSetId) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("campaign_status", "DELETED");
-		graphApi.post(adSetId, data);
+		marketingApi.post(adSetId, data);
 	}
 
 	private MultiValueMap<String, Object> mapCommonFields(AdSet adSet) {

@@ -1,5 +1,6 @@
 package pl.sgorecki.facebook.marketing.ads;
 
+import org.springframework.social.ApiBinding;
 import pl.sgorecki.facebook.marketing.ads.impl.FacebookAdsTemplate;
 
 /**
@@ -8,7 +9,7 @@ import pl.sgorecki.facebook.marketing.ads.impl.FacebookAdsTemplate;
  *
  * @author Sebastian Górecki
  */
-public interface FacebookAds {
+public interface FacebookAds extends MarketingApi, ApiBinding {
 	/**
 	 * API for working with Facebook Ad account.
 	 *

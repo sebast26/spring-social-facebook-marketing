@@ -1,8 +1,6 @@
 package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.facebook.api.FacebookObject;
 
 import java.util.Date;
@@ -13,60 +11,28 @@ import java.util.List;
  *
  * @author Sebastian Górecki
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class AdSet extends FacebookObject {
-	@JsonProperty("id")
 	private String id;
-
-	@JsonProperty("account_id")
 	private String accountId;
-
-	@JsonProperty("campaign_group_id")
 	private String campaignId;
-
-	@JsonProperty("name")
 	private String name;
+	private AdSetStatus status;
 
-	@JsonProperty("campaign_status")
-	private AdSet.AdSetStatus status;
-
-	@JsonProperty("is_autobid")
 	private boolean autobid;
-
-	@JsonProperty("bid_info")
 	private BidInfo bidInfo;
-
-	@JsonProperty("bid_type")
 	private BidType bidType;
 
-	@JsonProperty("budget_remaining")
 	private int budgetRemaining;
-
-	@JsonProperty("daily_budget")
 	private int dailyBudget;
-
-	@JsonProperty("lifetime_budget")
 	private int lifetimeBudget;
 
-	@JsonProperty("creative_sequence")
 	private List<String> creativeSequence;
-
-	@JsonProperty("promoted_object")
 	private PromotedObject promotedObject;
-
-	@JsonProperty("targeting")
 	private Targeting targeting;
 
-	@JsonProperty("start_time")
 	private Date startTime;
-
-	@JsonProperty("end_time")
 	private Date endTime;
-
-	@JsonProperty("created_time")
 	private Date createdTime;
-
-	@JsonProperty("updated_time")
 	private Date updatedTime;
 
 	public String getId() {

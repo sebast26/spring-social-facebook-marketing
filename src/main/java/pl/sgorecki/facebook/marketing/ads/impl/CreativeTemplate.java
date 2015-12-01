@@ -1,60 +1,59 @@
 package pl.sgorecki.facebook.marketing.ads.impl;
 
-import org.springframework.social.facebook.api.GraphApi;
 import org.springframework.social.facebook.api.PagedList;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import pl.sgorecki.facebook.marketing.ads.AdCreative;
 import pl.sgorecki.facebook.marketing.ads.CreativeOperations;
+import pl.sgorecki.facebook.marketing.ads.MarketingApi;
 
 /**
  * @author Sebastian Górecki
  */
 public class CreativeTemplate extends AbstractFacebookAdsOperations implements CreativeOperations {
 
-	private final GraphApi graphApi;
+	private final MarketingApi marketingApi;
 	private final RestTemplate restTemplate;
 
 
-	public CreativeTemplate(GraphApi graphApi, RestTemplate restTemplate, boolean isAuthorizedForUser) {
+	public CreativeTemplate(MarketingApi marketingApi, RestTemplate restTemplate, boolean isAuthorizedForUser) {
 		super(isAuthorizedForUser);
-		this.graphApi = graphApi;
+		this.marketingApi = marketingApi;
 		this.restTemplate = restTemplate;
 	}
 
 	public PagedList<AdCreative> getAccountCreatives(String accountId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(getAdAccountId(accountId), "adcreatives", AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcreatives", AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
 	}
 
 	public PagedList<AdCreative> getAdSetCreatives(String adSetId) {
 		requireAuthorization();
-		return graphApi.fetchConnections(adSetId, "adcreatives", AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
+		return marketingApi.fetchConnections(adSetId, "adcreatives", AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
 	}
 
 	public AdCreative getAdCreative(String creativeId) {
 		requireAuthorization();
-		return graphApi.fetchObject(creativeId, AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
+		return marketingApi.fetchObject(creativeId, AdCreative.class, CreativeOperations.AD_CREATIVE_FIELDS);
 	}
 
 	public String createAdCreative(String accountId, AdCreative creative) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(creative);
-		return graphApi.publish(getAdAccountId(accountId), "adcreatives", data);
+		return marketingApi.publish(getAdAccountId(accountId), "adcreatives", data);
 	}
 
 	public boolean renameAdCreative(String creativeId, String name) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("name", name);
-		graphApi.post(creativeId, data);
-		return true;
+		return marketingApi.update(creativeId, data);
 	}
 
 	public void deleteAdCreative(String creativeId) {
 		requireAuthorization();
-		restTemplate.delete(GraphApi.GRAPH_API_URL + creativeId);
+		restTemplate.delete(MarketingApi.GRAPH_API_URL + creativeId);
 	}
 
 	private MultiValueMap<String, Object> mapCommonFields(AdCreative creative) {

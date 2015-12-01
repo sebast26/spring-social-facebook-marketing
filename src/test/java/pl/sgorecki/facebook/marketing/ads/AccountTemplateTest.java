@@ -26,10 +26,10 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
-	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.3/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdaily_spend_limit%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
-	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.3/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdaily_spend_limit%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
-	private static final String GET_ADACCOUNT_USERS_REQUEST_URI = "https://graph.facebook.com/v2.3/act_123456789/users";
-	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.3/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cclicks%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccpc%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions";
+	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdaily_spend_limit%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
+	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.4/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdaily_spend_limit%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
+	private static final String GET_ADACCOUNT_USERS_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789/users";
+	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.4/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cclicks%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccpc%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions";
 
 
 	@Test
@@ -211,7 +211,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdAccountCampaigns() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-account-campaigns"), MediaType.APPLICATION_JSON));
@@ -280,7 +280,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void addUserToAccount() throws Exception {
 		String requestBody = "uid=123456&role=1002";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789/users/"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/users/"))
 				.andExpect(method(POST))
 				.andExpect(content().string(requestBody))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -297,7 +297,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void deleteUserFromAccount() throws Exception {
 		String requestBody = "method=delete";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789/users/123456"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/users/123456"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -389,7 +389,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void updateAdAccount_nameOnly() throws Exception {
 		String requestBody = "name=New+Test+Name";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -404,7 +404,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void updateAdAccount_spendCapOnly() throws Exception {
 		String requestBody = "spend_cap=10000";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -419,7 +419,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void updateAdAccount_bothNameAndSpendCap() throws Exception {
 		String requestBody = "name=Super+cool+name&spend_cap=11111";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.3/act_123456789"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))

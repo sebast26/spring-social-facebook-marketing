@@ -2,8 +2,6 @@ package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.facebook.api.FacebookObject;
 
 import java.util.List;
@@ -13,19 +11,11 @@ import java.util.List;
  *
  * @author Sebastian Górecki
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class AdUser extends FacebookObject {
-	@JsonProperty("id")
 	private String id;
-
-	@JsonProperty("name")
 	private String name;
-
-	@JsonProperty("permissions")
-	private List<AdUser.AdUserPermission> permissions;
-
-	@JsonProperty("role")
-	private AdUser.AdUserRole role;
+	private List<AdUserPermission> permissions;
+	private AdUserRole role;
 
 	public String getId() {
 		return id;
