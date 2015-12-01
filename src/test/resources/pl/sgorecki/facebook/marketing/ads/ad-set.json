@@ -6,9 +6,9 @@
   "campaign_status": "ACTIVE",
   "is_autobid": true,
   "bid_type": "ABSOLUTE_OCPM",
-  "budget_remaining": 50,
-  "daily_budget": 0,
-  "lifetime_budget": 200,
+  "budget_remaining": "50",
+  "daily_budget": "0",
+  "lifetime_budget": "200",
   "targeting": {
     "age_max": 20,
     "age_min": 18,

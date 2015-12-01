@@ -70,9 +70,9 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(AdSetStatus.ACTIVE, adSet.getStatus());
 		assertTrue(adSet.isAutobid());
 		assertEquals(BidType.ABSOLUTE_OCPM, adSet.getBidType());
-		assertEquals(50, adSet.getBudgetRemaining());
-		assertEquals(0, adSet.getDailyBudget());
-		assertEquals(200, adSet.getLifetimeBudget());
+		assertEquals("50", adSet.getBudgetRemaining());
+		assertEquals("0", adSet.getDailyBudget());
+		assertEquals("200", adSet.getLifetimeBudget());
 		// targeting
 		assertEquals(Integer.valueOf(20), adSet.getTargeting().getAgeMax());
 		assertEquals(Integer.valueOf(18), adSet.getTargeting().getAgeMin());
@@ -172,12 +172,12 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("123456789", adSet.getAccountId());
 		assertEquals(Integer.valueOf(500), adSet.getBidInfo().get("CLICKS"));
 		assertEquals(BidType.ABSOLUTE_OCPM, adSet.getBidType());
-		assertEquals(807, adSet.getBudgetRemaining());
+		assertEquals("807", adSet.getBudgetRemaining());
 		assertEquals("600123456789", adSet.getCampaignId());
 		assertEquals(AdSetStatus.PAUSED, adSet.getStatus());
-		assertEquals(2000, adSet.getDailyBudget());
+		assertEquals("2000", adSet.getDailyBudget());
 		assertFalse(adSet.isAutobid());
-		assertEquals(0, adSet.getLifetimeBudget());
+		assertEquals("0", adSet.getLifetimeBudget());
 		assertEquals("Test promoted object", adSet.getName());
 		assertEquals("999888777666555", adSet.getPromotedObject().get("page_id"));
 		assertEquals(toDate("2015-07-06T14:18:55+0200"), adSet.getCreatedTime());
@@ -271,7 +271,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAdSet() throws Exception {
-		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&bid_type=ABSOLUTE_OCPM&daily_budget=0&lifetime_budget=200&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
+		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -307,8 +307,8 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		bidInfo.put("SOCIAL", 110);
 		adSet.setBidInfo(bidInfo);
 		adSet.setBidType(BidType.ABSOLUTE_OCPM);
-		adSet.setDailyBudget(4000);
-		adSet.setLifetimeBudget(0);
+		adSet.setDailyBudget("4000");
+		adSet.setLifetimeBudget("0");
 		// targeting
 		Targeting targeting = new Targeting();
 		targeting.setGenders(Arrays.asList(Targeting.Gender.MALE, Targeting.Gender.FEMALE));
@@ -357,7 +357,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAdSet_withPromotedObject() throws Exception {
-		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&bid_type=ABSOLUTE_OCPM&daily_budget=0&lifetime_budget=200&promoted_object=%7B%22page_id%22%3A%22111222333444555%22%7D&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
+		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&promoted_object=%7B%22page_id%22%3A%22111222333444555%22%7D&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -380,7 +380,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void updateAdSet() throws Exception {
-		String requestBody = "date_format=U&name=New+AdSet+name&campaign_status=ARCHIVED&is_autobid=true&daily_budget=0&lifetime_budget=50000&start_time=1432833720";
+		String requestBody = "date_format=U&name=New+AdSet+name&campaign_status=ARCHIVED&is_autobid=true&daily_budget=null&lifetime_budget=50000&start_time=1432833720";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -390,7 +390,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		AdSet adSet = new AdSet();
 		adSet.setName("New AdSet name");
 		adSet.setStatus(AdSetStatus.ARCHIVED);
-		adSet.setLifetimeBudget(50000);
+		adSet.setLifetimeBudget("50000");
 		adSet.setAutobid(true);
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		adSet.setStartTime(formatter.parse("2015-05-28 19:22:00"));
@@ -421,19 +421,34 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		unauthorizedFacebookAds.adSetOperations().deleteAdSet("700123456789");
 	}
 
+	@Test
+	public void version24_budgetFieldsAreStringsNow() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("700123456789");
+		assertEquals("50", adSet.getBudgetRemaining());
+		assertTrue(adSet.getBudgetRemaining() instanceof String);
+		assertEquals("0", adSet.getDailyBudget());
+		assertTrue(adSet.getDailyBudget() instanceof String);
+		assertEquals("200", adSet.getLifetimeBudget());
+		assertTrue(adSet.getLifetimeBudget() instanceof String);
+	}
+
 	private void verifyAdSets(PagedList<AdSet> adSets) {
 		assertEquals(2, adSets.size());
 		assertEquals("123456789", adSets.get(0).getAccountId());
 		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(0).getBidType());
-		assertEquals(37407, adSets.get(0).getBudgetRemaining());
+		assertEquals("37407", adSets.get(0).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(0).getCampaignId());
 		assertEquals(AdSetStatus.PAUSED, adSets.get(0).getStatus());
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getCreatedTime());
-		assertEquals(40000, adSets.get(0).getDailyBudget());
+		assertEquals("40000", adSets.get(0).getDailyBudget());
 		assertEquals(toDate("2015-05-29T22:26:40+0200"), adSets.get(0).getEndTime());
 		assertEquals("700123456789", adSets.get(0).getId());
 		assertTrue(adSets.get(0).isAutobid());
-		assertEquals(0, adSets.get(0).getLifetimeBudget());
+		assertEquals("0", adSets.get(0).getLifetimeBudget());
 		assertEquals("Test AdSet", adSets.get(0).getName());
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getStartTime());
 		assertEquals(Integer.valueOf(65), adSets.get(0).getTargeting().getAgeMax());
@@ -444,15 +459,15 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 		assertEquals("123456789", adSets.get(1).getAccountId());
 		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(1).getBidType());
-		assertEquals(0, adSets.get(1).getBudgetRemaining());
+		assertEquals("0", adSets.get(1).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(1).getCampaignId());
 		assertEquals(AdSetStatus.ACTIVE, adSets.get(1).getStatus());
 		assertEquals(toDate("2015-04-10T09:28:54+0200"), adSets.get(1).getCreatedTime());
-		assertEquals(0, adSets.get(1).getDailyBudget());
+		assertEquals("0", adSets.get(1).getDailyBudget());
 		assertEquals(toDate("2015-04-13T09:19:00+0200"), adSets.get(1).getEndTime());
 		assertEquals("701123456789", adSets.get(1).getId());
 		assertTrue(adSets.get(1).isAutobid());
-		assertEquals(200, adSets.get(1).getLifetimeBudget());
+		assertEquals("200", adSets.get(1).getLifetimeBudget());
 		assertEquals("Real ad set", adSets.get(1).getName());
 		assertEquals(toDate("2015-04-12T09:19:00+0200"), adSets.get(1).getStartTime());
 		assertEquals(Integer.valueOf(20), adSets.get(1).getTargeting().getAgeMax());
@@ -483,7 +498,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		Targeting targeting = new Targeting();
 		targeting.setGeoLocations(location);
 		adSet.setTargeting(targeting);
-		adSet.setLifetimeBudget(200);
+		adSet.setLifetimeBudget("200");
 		return adSet;
 	}
 }

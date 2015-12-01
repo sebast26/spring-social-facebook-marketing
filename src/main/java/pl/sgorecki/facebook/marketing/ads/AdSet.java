@@ -22,9 +22,9 @@ public class AdSet extends FacebookObject {
 	private BidInfo bidInfo;
 	private BidType bidType;
 
-	private int budgetRemaining;
-	private int dailyBudget;
-	private int lifetimeBudget;
+	private String budgetRemaining;
+	private String dailyBudget;
+	private String lifetimeBudget;
 
 	private List<String> creativeSequence;
 	private PromotedObject promotedObject;
@@ -91,23 +91,23 @@ public class AdSet extends FacebookObject {
 		this.bidType = bidType;
 	}
 
-	public int getBudgetRemaining() {
+	public String getBudgetRemaining() {
 		return budgetRemaining;
 	}
 
-	public int getDailyBudget() {
+	public String getDailyBudget() {
 		return dailyBudget;
 	}
 
-	public void setDailyBudget(int dailyBudget) {
+	public void setDailyBudget(String dailyBudget) {
 		this.dailyBudget = dailyBudget;
 	}
 
-	public int getLifetimeBudget() {
+	public String getLifetimeBudget() {
 		return lifetimeBudget;
 	}
 
-	public void setLifetimeBudget(int lifetimeBudget) {
+	public void setLifetimeBudget(String lifetimeBudget) {
 		this.lifetimeBudget = lifetimeBudget;
 	}
 

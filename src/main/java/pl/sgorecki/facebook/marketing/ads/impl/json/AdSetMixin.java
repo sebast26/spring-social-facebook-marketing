@@ -39,13 +39,13 @@ abstract public class AdSetMixin {
 	BidType bidType;
 
 	@JsonProperty("budget_remaining")
-	int budgetRemaining;
+	String budgetRemaining;
 
 	@JsonProperty("daily_budget")
-	int dailyBudget;
+	String dailyBudget;
 
 	@JsonProperty("lifetime_budget")
-	int lifetimeBudget;
+	String lifetimeBudget;
 
 	@JsonProperty("creative_sequence")
 	List<String> creativeSequence;
