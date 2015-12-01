@@ -34,21 +34,21 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(CampaignStatus.ACTIVE, campaigns.get(0).getStatus());
 		assertEquals("Campaign #1", campaigns.get(0).getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaigns.get(0).getObjective());
-		assertEquals(0, campaigns.get(0).getSpendCap());
+		assertEquals(null, campaigns.get(0).getSpendCap());
 		assertEquals("602123456789", campaigns.get(1).getId());
 		assertEquals("123456789", campaigns.get(1).getAccountId());
 		assertEquals(BuyingType.FIXED_CPM, campaigns.get(1).getBuyingType());
 		assertEquals(CampaignStatus.PAUSED, campaigns.get(1).getStatus());
 		assertEquals("Campaign #2", campaigns.get(1).getName());
 		assertEquals(CampaignObjective.NONE, campaigns.get(1).getObjective());
-		assertEquals(0, campaigns.get(1).getSpendCap());
+		assertEquals(null, campaigns.get(1).getSpendCap());
 		assertEquals("603123456789", campaigns.get(2).getId());
 		assertEquals("123456789", campaigns.get(2).getAccountId());
 		assertEquals(BuyingType.RESERVED, campaigns.get(2).getBuyingType());
 		assertEquals(CampaignStatus.ARCHIVED, campaigns.get(2).getStatus());
 		assertEquals("Campaign #3", campaigns.get(2).getName());
 		assertEquals(CampaignObjective.WEBSITE_CONVERSIONS, campaigns.get(2).getObjective());
-		assertEquals(50000, campaigns.get(2).getSpendCap());
+		assertEquals("50000", campaigns.get(2).getSpendCap());
 	}
 
 	@Test(expected = NotAuthorizedException.class)
@@ -70,7 +70,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(CampaignStatus.ACTIVE, campaign.getStatus());
 		assertEquals("The test campaign name", campaign.getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaign.getObjective());
-		assertEquals(1000, campaign.getSpendCap());
+		assertEquals("1000", campaign.getSpendCap());
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(CampaignStatus.ACTIVE, campaign.getStatus());
 		assertEquals("The test campaign name", campaign.getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaign.getObjective());
-		assertEquals(1000, campaign.getSpendCap());
+		assertEquals("1000", campaign.getSpendCap());
 		mockServer.verify();
 	}
 
@@ -124,15 +124,15 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(2, adSets.size());
 		assertEquals("123456789", adSets.get(0).getAccountId());
 		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(0).getBidType());
-		assertEquals(37407, adSets.get(0).getBudgetRemaining());
+		assertEquals("37407", adSets.get(0).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(0).getCampaignId());
 		assertEquals(AdSet.AdSetStatus.PAUSED, adSets.get(0).getStatus());
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getCreatedTime());
-		assertEquals(40000, adSets.get(0).getDailyBudget());
+		assertEquals("40000", adSets.get(0).getDailyBudget());
 		assertEquals(toDate("2015-05-29T22:26:40+0200"), adSets.get(0).getEndTime());
 		assertEquals("700123456789", adSets.get(0).getId());
 		assertTrue(adSets.get(0).isAutobid());
-		assertEquals(0, adSets.get(0).getLifetimeBudget());
+		assertEquals("0", adSets.get(0).getLifetimeBudget());
 		assertEquals("Test AdSet", adSets.get(0).getName());
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getStartTime());
 		assertEquals(Integer.valueOf(65), adSets.get(0).getTargeting().getAgeMax());
@@ -143,15 +143,15 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 		assertEquals("123456789", adSets.get(1).getAccountId());
 		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(1).getBidType());
-		assertEquals(0, adSets.get(1).getBudgetRemaining());
+		assertEquals("0", adSets.get(1).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(1).getCampaignId());
 		assertEquals(AdSet.AdSetStatus.ACTIVE, adSets.get(1).getStatus());
 		assertEquals(toDate("2015-04-10T09:28:54+0200"), adSets.get(1).getCreatedTime());
-		assertEquals(0, adSets.get(1).getDailyBudget());
+		assertEquals("0", adSets.get(1).getDailyBudget());
 		assertEquals(toDate("2015-04-13T09:19:00+0200"), adSets.get(1).getEndTime());
 		assertEquals("701123456789", adSets.get(1).getId());
 		assertTrue(adSets.get(1).isAutobid());
-		assertEquals(200, adSets.get(1).getLifetimeBudget());
+		assertEquals("200", adSets.get(1).getLifetimeBudget());
 		assertEquals("Real ad set", adSets.get(1).getName());
 		assertEquals(toDate("2015-04-12T09:19:00+0200"), adSets.get(1).getStartTime());
 		assertEquals(Integer.valueOf(20), adSets.get(1).getTargeting().getAgeMax());
@@ -248,7 +248,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 				.andExpect(content().string(requestBody))
 				.andRespond(withSuccess("{\"id\": \"601123456789\"}", MediaType.APPLICATION_JSON));
 		AdCampaign campaign = new AdCampaign();
-		campaign.setSpendCap(240000);
+		campaign.setSpendCap("240000");
 		assertEquals("601123456789", facebookAds.campaignOperations().createAdCampaign("123456789", campaign));
 		mockServer.verify();
 	}
@@ -280,7 +280,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		campaign.setName("Full campaign");
 		campaign.setStatus(CampaignStatus.ACTIVE);
 		campaign.setObjective(CampaignObjective.PAGE_LIKES);
-		campaign.setSpendCap(60000);
+		campaign.setSpendCap("60000");
 		campaign.setBuyingType(BuyingType.RESERVED);
 		assertEquals("601123456789", facebookAds.campaignOperations().createAdCampaign("123456789", campaign));
 		mockServer.verify();
@@ -342,7 +342,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 				.andExpect(content().string(requestBody))
 				.andRespond(withSuccess("{\"success\": true}", MediaType.APPLICATION_JSON));
 		AdCampaign campaign = new AdCampaign();
-		campaign.setSpendCap(60000);
+		campaign.setSpendCap("60000");
 		assertTrue(facebookAds.campaignOperations().updateAdCampaign("600123456789", campaign));
 		mockServer.verify();
 	}
@@ -359,7 +359,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		campaign.setName("Updated campaign");
 		campaign.setStatus(CampaignStatus.ARCHIVED);
 		campaign.setObjective(CampaignObjective.CANVAS_APP_ENGAGEMENT);
-		campaign.setSpendCap(60000);
+		campaign.setSpendCap("60000");
 		assertTrue(facebookAds.campaignOperations().updateAdCampaign("600123456789", campaign));
 		mockServer.verify();
 	}
@@ -461,5 +461,17 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test(expected = NotAuthorizedException.class)
 	public void getAdCampaignInsights_unauthorized() throws Exception {
 		unauthorizedFacebookAds.campaignOperations().getAdCampaignInsight("600123456789");
+	}
+
+	@Test
+	public void version24_spendCapToString() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-campaign"), MediaType.APPLICATION_JSON));
+		AdCampaign campaign = facebookAds.campaignOperations().getAdCampaign("600123456789");
+
+		assertEquals("1000", campaign.getSpendCap());
+		assertTrue(campaign.getSpendCap() instanceof String);
 	}
 }

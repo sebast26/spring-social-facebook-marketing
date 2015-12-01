@@ -5,5 +5,5 @@
   "campaign_group_status": "ACTIVE",
   "name": "The test campaign name",
   "objective": "POST_ENGAGEMENT",
-  "spend_cap": 1000
+  "spend_cap": "1000"
 }

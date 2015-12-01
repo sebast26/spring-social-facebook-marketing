@@ -31,5 +31,5 @@ abstract public class AdCampaignMixin {
 	AdCampaign.CampaignObjective objective;
 
 	@JsonProperty("spend_cap")
-	int spendCap;
+	String spendCap;
 }

@@ -71,7 +71,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 		if (adCampaign.getObjective() != null) {
 			map.add("objective", adCampaign.getObjective().name());
 		}
-		if (adCampaign.getSpendCap() != 0) {
+		if (adCampaign.getSpendCap() != null) {
 			map.add("spend_cap", String.valueOf(adCampaign.getSpendCap()));
 		}
 		return map;
