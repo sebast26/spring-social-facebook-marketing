@@ -32,7 +32,6 @@ public class AdAccount extends FacebookObject {
 	private List<Capability> capabilities;
 	private Date createdTime;
 	private String currency;
-	private String dailySpendLimit;
 	private long endAdvertiser;
 	private String fundingSource;
 	private Map<String, Object> fundingSourceDetails;
@@ -119,10 +118,6 @@ public class AdAccount extends FacebookObject {
 
 	public String getCurrency() {
 		return currency;
-	}
-
-	public String getDailySpendLimit() {
-		return dailySpendLimit;
 	}
 
 	public long getEndAdvertiser() {

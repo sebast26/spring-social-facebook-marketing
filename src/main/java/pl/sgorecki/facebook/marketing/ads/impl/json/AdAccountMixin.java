@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Annotated mixin to add Jackson annotations to AdAccount.
  *
- * @author Sebastian Górecki
+ * @author Sebastian Gï¿½recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AdAccountMixin {
@@ -82,9 +82,6 @@ public abstract class AdAccountMixin {
 
 	@JsonProperty("currency")
 	String currency;
-
-	@JsonProperty("daily_spend_limit")
-	String dailySpendLimit;
 
 	@JsonProperty("end_advertiser")
 	long endAdvertiser;
