@@ -21,6 +21,7 @@ public class AdSet extends FacebookObject {
 	private boolean autobid;
 	private BidInfo bidInfo;
 	private BidType bidType;
+	private OptimizationGoal optimizationGoal;
 
 	private String budgetRemaining;
 	private String dailyBudget;
@@ -89,6 +90,10 @@ public class AdSet extends FacebookObject {
 
 	public void setBidType(BidType bidType) {
 		this.bidType = bidType;
+	}
+
+	public OptimizationGoal getOptimizationGoal() {
+		return optimizationGoal;
 	}
 
 	public String getBudgetRemaining() {
@@ -163,6 +168,21 @@ public class AdSet extends FacebookObject {
 			for (AdSetStatus status : AdSetStatus.values()) {
 				if (status.name().equals(value)) {
 					return status;
+				}
+			}
+			return UNKNOWN;
+		}
+	}
+
+	public enum OptimizationGoal {
+		UNKNOWN, NONE, APP_INSTALLS, BRAND_AWARENESS, CLICKS, ENGAGED_USERS, EXTERNAL, EVENT_RESPONSES, IMPRESSIONS,
+		LEAD_GENERATION, LINK_CLICKS, OFFER_CLAIMS, OFFSITE_CONVERSIONS, PAGE_ENGAGEMENT, PAGE_LIKES, POST_ENGAGEMENT,
+		REACH, SOCIAL_IMPRESSIONS, VIDEO_VIEWS;
+
+		public static OptimizationGoal fromValue(String value) {
+			for (OptimizationGoal goal : OptimizationGoal.values()) {
+				if (goal.name().equals(value)) {
+					return goal;
 				}
 			}
 			return UNKNOWN;

@@ -6,6 +6,7 @@
   "campaign_status": "ACTIVE",
   "is_autobid": true,
   "bid_type": "ABSOLUTE_OCPM",
+  "optimization_goal": "PAGE_ENGAGEMENT",
   "budget_remaining": "50",
   "daily_budget": "0",
   "lifetime_budget": "200",
