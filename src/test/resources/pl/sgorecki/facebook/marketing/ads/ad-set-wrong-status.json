@@ -5,7 +5,6 @@
   "name": "Test AdSet",
   "campaign_status": "WRONG_STATUS",
   "is_autobid": true,
-  "bid_type": "ABSOLUTE_OCPM",
   "budget_remaining": "50",
   "daily_budget": "0",
   "lifetime_budget": "200",

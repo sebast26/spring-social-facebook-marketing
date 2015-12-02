@@ -89,9 +89,6 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 		}
 		data.set("bid_amount", String.valueOf(adSet.getBidAmount()));
 		data.set("rtb_flag", String.valueOf(adSet.isRtbFlag()));
-		if (adSet.getBidType() != null) {
-			data.set("bid_type", adSet.getBidType().name());
-		}
 		data.set("daily_budget", String.valueOf(adSet.getDailyBudget()));
 		data.set("lifetime_budget", String.valueOf(adSet.getLifetimeBudget()));
 		if (adSet.getPromotedObject() != null) {

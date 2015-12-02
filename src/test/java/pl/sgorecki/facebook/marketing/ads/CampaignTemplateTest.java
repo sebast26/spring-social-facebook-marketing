@@ -115,7 +115,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignSets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
@@ -123,7 +123,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		PagedList<AdSet> adSets = facebookAds.campaignOperations().getAdCampaignSets("600123456789");
 		assertEquals(2, adSets.size());
 		assertEquals("123456789", adSets.get(0).getAccountId());
-		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(0).getBidType());
 		assertEquals(AdSet.BillingEvent.CLICKS, adSets.get(0).getBillingEvent());
 		assertEquals("37407", adSets.get(0).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(0).getCampaignId());
@@ -143,7 +142,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getUpdatedTime());
 
 		assertEquals("123456789", adSets.get(1).getAccountId());
-		assertEquals(BidType.ABSOLUTE_OCPM, adSets.get(1).getBidType());
 		assertEquals(AdSet.BillingEvent.CLICKS, adSets.get(1).getBillingEvent());
 		assertEquals("0", adSets.get(1).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(1).getCampaignId());

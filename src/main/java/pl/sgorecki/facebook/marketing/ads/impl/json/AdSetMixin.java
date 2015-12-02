@@ -35,9 +35,6 @@ abstract public class AdSetMixin {
 	@JsonProperty("bid_info")
 	BidInfo bidInfo;
 
-	@JsonProperty("bid_type")
-	BidType bidType;
-
 	@JsonProperty("billing_event")
 	AdSet.BillingEvent billingEvent;
 

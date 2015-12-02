@@ -20,7 +20,6 @@ public class AdSet extends FacebookObject {
 
 	private boolean autobid;
 	private BidInfo bidInfo;
-	private BidType bidType;
 	private BillingEvent billingEvent;
 	private OptimizationGoal optimizationGoal;
 	private int bidAmount;
@@ -82,15 +81,7 @@ public class AdSet extends FacebookObject {
 	public BidInfo getBidInfo() {
 		return bidInfo;
 	}
-
-	public BidType getBidType() {
-		return bidType;
-	}
-
-	public void setBidType(BidType bidType) {
-		this.bidType = bidType;
-	}
-
+	
 	public OptimizationGoal getOptimizationGoal() {
 		return optimizationGoal;
 	}

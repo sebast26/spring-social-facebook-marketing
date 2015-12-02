@@ -5,7 +5,6 @@
   "name": "Test AdSet",
   "campaign_status": "ACTIVE",
   "is_autobid": true,
-  "bid_type": "ABSOLUTE_OCPM",
   "billing_event": "CLICKS",
   "optimization_goal": "PAGE_ENGAGEMENT",
   "bid_amount": 4444,
