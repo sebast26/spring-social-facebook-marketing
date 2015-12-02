@@ -198,10 +198,10 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 		AdAccount adAccount = facebookAds.accountOperations().getAdAccount("123456789");
 		assertAdAccountFields(adAccount);
-		assertTrue(adAccount.getTosAccepted().containsKey("206760949512025"));
-		assertEquals((Integer) 1, adAccount.getTosAccepted().get("206760949512025"));
-		assertTrue(adAccount.getTosAccepted().containsKey("215449065224656"));
-		assertEquals((Integer) 1, adAccount.getTosAccepted().get("215449065224656"));
+		assertTrue(adAccount.getTosAccepted().containsKey("web_custom_audience_tos"));
+		assertEquals((Integer) 1, adAccount.getTosAccepted().get("web_custom_audience_tos"));
+		assertTrue(adAccount.getTosAccepted().containsKey("custom_audience_tos"));
+		assertEquals((Integer) 1, adAccount.getTosAccepted().get("custom_audience_tos"));
 	}
 
 	@Test(expected = NotAuthorizedException.class)

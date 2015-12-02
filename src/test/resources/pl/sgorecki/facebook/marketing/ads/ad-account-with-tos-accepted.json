@@ -36,8 +36,8 @@
   "timezone_name": "Europe/Warsaw",
   "timezone_offset_hours_utc": 2,
   "tos_accepted": {
-    "206760949512025": 1,
-    "215449065224656": 1
+    "web_custom_audience_tos": 1,
+    "custom_audience_tos": 1
   },
   "users": {
     "data": [
