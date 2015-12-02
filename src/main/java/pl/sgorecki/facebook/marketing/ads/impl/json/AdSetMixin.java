@@ -47,6 +47,9 @@ abstract public class AdSetMixin {
 	@JsonProperty("bid_amount")
 	int bidAmount;
 
+	@JsonProperty("rtb_flag")
+	boolean rtbFlag;
+
 	@JsonProperty("budget_remaining")
 	String budgetRemaining;
 

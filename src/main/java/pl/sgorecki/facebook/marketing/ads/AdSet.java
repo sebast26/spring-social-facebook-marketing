@@ -24,6 +24,7 @@ public class AdSet extends FacebookObject {
 	private BillingEvent billingEvent;
 	private OptimizationGoal optimizationGoal;
 	private int bidAmount;
+	private boolean rtbFlag;
 
 	private String budgetRemaining;
 	private String dailyBudget;
@@ -116,6 +117,14 @@ public class AdSet extends FacebookObject {
 
 	public void setBidAmount(int bidAmount) {
 		this.bidAmount = bidAmount;
+	}
+
+	public boolean isRtbFlag() {
+		return rtbFlag;
+	}
+
+	public void setRtbFlag(boolean rtbFlag) {
+		this.rtbFlag = rtbFlag;
 	}
 
 	public String getBudgetRemaining() {

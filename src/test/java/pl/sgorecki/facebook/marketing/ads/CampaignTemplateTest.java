@@ -115,7 +115,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignSets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
