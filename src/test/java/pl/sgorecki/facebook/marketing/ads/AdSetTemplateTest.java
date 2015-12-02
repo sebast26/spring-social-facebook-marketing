@@ -103,8 +103,8 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(6003629266583L, adSet.getTargeting().getInterests().get(0).getId());
 		assertEquals("Hard drives", adSet.getTargeting().getInterests().get(0).getName());
 		assertEquals(2, adSet.getTargeting().getPageTypes().size());
-		assertEquals(Targeting.PageType.FEED, adSet.getTargeting().getPageTypes().get(0));
-		assertEquals(Targeting.PageType.DESKTOP_AND_MOBILE_AND_EXTERNAL, adSet.getTargeting().getPageTypes().get(1));
+		assertEquals(Targeting.PageType.DESKTOPFEED, adSet.getTargeting().getPageTypes().get(0));
+		assertEquals(Targeting.PageType.MOBILEFEED, adSet.getTargeting().getPageTypes().get(1));
 		assertEquals(2, adSet.getTargeting().getRelationshipStatuses().size());
 		assertEquals(Targeting.RelationshipStatus.IN_RELATIONSHIP, adSet.getTargeting().getRelationshipStatuses().get(0));
 		assertEquals(Targeting.RelationshipStatus.IN_OPEN_RELATIONSHIP, adSet.getTargeting().getRelationshipStatuses().get(1));
@@ -288,7 +288,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		String requestBody = "date_format=U&name=Test+AdSet+2&campaign_status=ACTIVE&is_autobid=false&" +
 				"bid_info=%7B%22REACH%22%3A1000%2C%22ACTIONS%22%3A200%2C%22SOCIAL%22%3A110%2C%22CLICKS%22%3A500%7D&" +
 				"bid_type=ABSOLUTE_OCPM&daily_budget=4000&lifetime_budget=0&" +
-				"targeting=%7B%22genders%22%3A%5B1%2C2%5D%2C%22age_min%22%3A45%2C%22age_max%22%3A55%2C%22relationship_statuses%22%3A%5B10%2C12%5D%2C%22interested_in%22%3A%5B1%2C2%5D%2C%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%2C%22DE%22%2C%22US%22%2C%22FR%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%223847%22%7D%2C%7B%22key%22%3A%221111%22%7D%2C%7B%22key%22%3A%221234%22%7D%2C%7B%22key%22%3A%229888%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%222430536%22%2C%22radius%22%3A12%2C%22distance_unit%22%3A%22mile%22%7D%2C%7B%22key%22%3A%22777555%22%2C%22radius%22%3A1024%2C%22distance_unit%22%3A%22kilometer%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22PL%3A62030%22%7D%2C%7B%22key%22%3A%22US%3A88123%22%7D%2C%7B%22key%22%3A%22FR%3A33144%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%2C%22recent%22%5D%7D%2C%22excluded_geo_locations%22%3A%7B%22countries%22%3A%5B%22HU%22%2C%22JP%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%221122%22%7D%2C%7B%22key%22%3A%2231415%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%2288997766%22%2C%22radius%22%3A12345%2C%22distance_unit%22%3A%22mile%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22JP%3A44552%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%5D%7D%2C%22page_types%22%3A%5B%22desktopfeed%22%2C%22mobilefeed-and-external%22%5D%2C%22connections%22%3A%5B%22123456789%22%2C%2255442211%22%5D%2C%22excluded_connections%22%3A%5B%2233441122%22%5D%2C%22friends_of_connections%22%3A%5B%22987654321%22%5D%2C%22interests%22%3A%5B%7B%22id%22%3A986123123123%2C%22name%22%3A%22Football%22%7D%5D%2C%22behaviors%22%3A%5B%7B%22id%22%3A1%2C%22name%22%3A%22Some+behavior%22%7D%5D%2C%22education_schools%22%3A%5B%7B%22id%22%3A10593123549%2C%22name%22%3A%22Poznan+University+of+Technology%22%7D%5D%2C%22education_statuses%22%3A%5B9%5D%2C%22college_years%22%3A%5B8%5D%2C%22education_majors%22%3A%5B%7B%22id%22%3A12%2C%22name%22%3A%22Some+major%22%7D%5D%2C%22work_employers%22%3A%5B%7B%22id%22%3A43125%2C%22name%22%3A%22Super+company%22%7D%5D%2C%22work_positions%22%3A%5B%7B%22id%22%3A11111%2C%22name%22%3A%22Developer%22%7D%5D%7D&" +
+				"targeting=%7B%22genders%22%3A%5B1%2C2%5D%2C%22age_min%22%3A45%2C%22age_max%22%3A55%2C%22relationship_statuses%22%3A%5B10%2C12%5D%2C%22interested_in%22%3A%5B1%2C2%5D%2C%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%2C%22DE%22%2C%22US%22%2C%22FR%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%223847%22%7D%2C%7B%22key%22%3A%221111%22%7D%2C%7B%22key%22%3A%221234%22%7D%2C%7B%22key%22%3A%229888%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%222430536%22%2C%22radius%22%3A12%2C%22distance_unit%22%3A%22mile%22%7D%2C%7B%22key%22%3A%22777555%22%2C%22radius%22%3A1024%2C%22distance_unit%22%3A%22kilometer%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22PL%3A62030%22%7D%2C%7B%22key%22%3A%22US%3A88123%22%7D%2C%7B%22key%22%3A%22FR%3A33144%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%2C%22recent%22%5D%7D%2C%22excluded_geo_locations%22%3A%7B%22countries%22%3A%5B%22HU%22%2C%22JP%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%221122%22%7D%2C%7B%22key%22%3A%2231415%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%2288997766%22%2C%22radius%22%3A12345%2C%22distance_unit%22%3A%22mile%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22JP%3A44552%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%5D%7D%2C%22page_types%22%3A%5B%22desktopfeed%22%2C%22mobilefeed%22%5D%2C%22connections%22%3A%5B%22123456789%22%2C%2255442211%22%5D%2C%22excluded_connections%22%3A%5B%2233441122%22%5D%2C%22friends_of_connections%22%3A%5B%22987654321%22%5D%2C%22interests%22%3A%5B%7B%22id%22%3A986123123123%2C%22name%22%3A%22Football%22%7D%5D%2C%22behaviors%22%3A%5B%7B%22id%22%3A1%2C%22name%22%3A%22Some+behavior%22%7D%5D%2C%22education_schools%22%3A%5B%7B%22id%22%3A10593123549%2C%22name%22%3A%22Poznan+University+of+Technology%22%7D%5D%2C%22education_statuses%22%3A%5B9%5D%2C%22college_years%22%3A%5B8%5D%2C%22education_majors%22%3A%5B%7B%22id%22%3A12%2C%22name%22%3A%22Some+major%22%7D%5D%2C%22work_employers%22%3A%5B%7B%22id%22%3A43125%2C%22name%22%3A%22Super+company%22%7D%5D%2C%22work_positions%22%3A%5B%7B%22id%22%3A11111%2C%22name%22%3A%22Developer%22%7D%5D%7D&" +
 				"start_time=1432742400&end_time=1435420799&campaign_group_id=601123456789";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns"))
 				.andExpect(method(POST))
@@ -333,7 +333,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		excludedGeoLocations.setLocationTypes(Arrays.asList(TargetingLocation.LocationType.HOME));
 		targeting.setExcludedGeoLocations(excludedGeoLocations);
 		// targeting cd.
-		targeting.setPageTypes(Arrays.asList(Targeting.PageType.DESKTOP_FEED, Targeting.PageType.MOBILE_FEED_AND_EXTERNAL));
+		targeting.setPageTypes(Arrays.asList(Targeting.PageType.DESKTOPFEED, Targeting.PageType.MOBILEFEED));
 		targeting.setConnections(Arrays.asList("123456789", "55442211"));
 		targeting.setExcludedConnections(Arrays.asList("33441122"));
 		targeting.setFriendsOfConnections(Arrays.asList("987654321"));
@@ -480,7 +480,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(TargetingLocation.LocationType.RECENT, adSets.get(1).getTargeting().getGeoLocations().getLocationTypes().get(1));
 		assertEquals(6003629266583L, adSets.get(1).getTargeting().getInterests().get(0).getId());
 		assertEquals("Hard drives", adSets.get(1).getTargeting().getInterests().get(0).getName());
-		assertEquals(Targeting.PageType.FEED, adSets.get(1).getTargeting().getPageTypes().get(0));
+		assertEquals(Targeting.PageType.DESKTOPFEED, adSets.get(1).getTargeting().getPageTypes().get(0));
 		assertEquals(toDate("2015-04-10T13:32:09+0200"), adSets.get(1).getUpdatedTime());
 	}
 

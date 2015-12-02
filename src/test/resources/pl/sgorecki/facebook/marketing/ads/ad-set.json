@@ -72,8 +72,8 @@
       }
     ],
     "page_types": [
-      "feed",
-      "desktop-and-mobile-and-external"
+      "desktopfeed",
+      "mobilefeed"
     ],
     "education_schools": [
       {

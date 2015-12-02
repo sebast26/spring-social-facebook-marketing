@@ -164,7 +164,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(TargetingLocation.LocationType.RECENT, adSets.get(1).getTargeting().getGeoLocations().getLocationTypes().get(1));
 		assertEquals(6003629266583L, adSets.get(1).getTargeting().getInterests().get(0).getId());
 		assertEquals("Hard drives", adSets.get(1).getTargeting().getInterests().get(0).getName());
-		assertEquals(Targeting.PageType.FEED, adSets.get(1).getTargeting().getPageTypes().get(0));
+		assertEquals(Targeting.PageType.DESKTOPFEED, adSets.get(1).getTargeting().getPageTypes().get(0));
 		assertEquals(toDate("2015-04-10T13:32:09+0200"), adSets.get(1).getUpdatedTime());
 
 		mockServer.verify();

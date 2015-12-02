@@ -267,10 +267,8 @@ public class Targeting {
 	}
 
 	public enum PageType {
-		UNKNOWN("unknown"), DESKTOP("desktop"), FEED("feed"), DESKTOP_FEED("desktopfeed"), MOBILE("mobile"),
-		MOBILE_FEED_AND_EXTERNAL("mobilefeed-and-external"), MOBILE_FEED("mobilefeed"), RIGHTCOLUMN("rightcolumn"),
-		RIGHTCOLUMN_AND_MOBILE("rightcolumn-and-mobile"), HOME("home"), DESKTOP_AND_MOBILE_AND_EXTERNAL("desktop-and-mobile-and-external"),
-		FEED_AND_EXTERNAL("feed-and-external"), RIGHTCOLUMN_AND_MOBILE_AND_EXTERNAL("rightcolumn-and-mobile-and-external");
+		UNKNOWN("unknown"), DESKTOPFEED("desktopfeed"), RIGHTCOLUMN("rightcolumn"), MOBILEFEED("mobilefeed"),
+		INSTAGRAMSTREAM("instagramstream"), MOBILEEXTERNAL("mobileexternal"), HOME("home");
 
 		private final String value;
 
