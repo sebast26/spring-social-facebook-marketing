@@ -8,6 +8,7 @@
   "bid_type": "ABSOLUTE_OCPM",
   "billing_event": "CLICKS",
   "optimization_goal": "PAGE_ENGAGEMENT",
+  "bid_amount": 4444,
   "budget_remaining": "50",
   "daily_budget": "0",
   "lifetime_budget": "200",

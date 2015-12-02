@@ -23,6 +23,7 @@ public class AdSet extends FacebookObject {
 	private BidType bidType;
 	private BillingEvent billingEvent;
 	private OptimizationGoal optimizationGoal;
+	private int bidAmount;
 
 	private String budgetRemaining;
 	private String dailyBudget;
@@ -107,6 +108,14 @@ public class AdSet extends FacebookObject {
 
 	public void setBillingEvent(BillingEvent billingEvent) {
 		this.billingEvent = billingEvent;
+	}
+
+	public int getBidAmount() {
+		return bidAmount;
+	}
+
+	public void setBidAmount(int bidAmount) {
+		this.bidAmount = bidAmount;
 	}
 
 	public String getBudgetRemaining() {

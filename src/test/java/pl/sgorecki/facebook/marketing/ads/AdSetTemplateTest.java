@@ -24,7 +24,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
@@ -41,7 +41,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getCampaignAdsets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
@@ -58,7 +58,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSet() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
@@ -72,6 +72,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(BidType.ABSOLUTE_OCPM, adSet.getBidType());
 		assertEquals(AdSet.BillingEvent.CLICKS, adSet.getBillingEvent());
 		assertEquals(AdSet.OptimizationGoal.PAGE_ENGAGEMENT, adSet.getOptimizationGoal());
+		assertEquals(4444, adSet.getBidAmount());
 		assertEquals("50", adSet.getBudgetRemaining());
 		assertEquals("0", adSet.getDailyBudget());
 		assertEquals("200", adSet.getLifetimeBudget());
@@ -134,7 +135,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSet_wrongStatus() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/709123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/709123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set-wrong-status"), MediaType.APPLICATION_JSON));
@@ -149,7 +150,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSet_wrongBidType() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/710123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/710123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set-wrong-bid-type"), MediaType.APPLICATION_JSON));
@@ -165,7 +166,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSet_withPromotedObject() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/705123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/705123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set-promoted-object"), MediaType.APPLICATION_JSON));
@@ -176,6 +177,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(BidType.ABSOLUTE_OCPM, adSet.getBidType());
 		assertEquals(AdSet.BillingEvent.VIDEO_VIEWS, adSet.getBillingEvent());
 		assertEquals(AdSet.OptimizationGoal.OFFER_CLAIMS, adSet.getOptimizationGoal());
+		assertEquals(5000, adSet.getBidAmount());
 		assertEquals("807", adSet.getBudgetRemaining());
 		assertEquals("600123456789", adSet.getCampaignId());
 		assertEquals(AdSetStatus.PAUSED, adSet.getStatus());
@@ -275,7 +277,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAdSet() throws Exception {
-		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&billing_event=CLICKS&optimization_goal=CLICKS&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
+		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&billing_event=CLICKS&optimization_goal=CLICKS&bid_amount=3333&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -291,7 +293,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 	public void createAdSet_withAllFields() throws Exception {
 		String requestBody = "date_format=U&name=Test+AdSet+2&campaign_status=ACTIVE&is_autobid=false&" +
 				"bid_info=%7B%22REACH%22%3A1000%2C%22ACTIONS%22%3A200%2C%22SOCIAL%22%3A110%2C%22CLICKS%22%3A500%7D&" +
-				"billing_event=APP_INSTALLS&optimization_goal=CLICKS&" +
+				"billing_event=APP_INSTALLS&optimization_goal=CLICKS&bid_amount=2222&" +
 				"bid_type=ABSOLUTE_OCPM&daily_budget=4000&lifetime_budget=0&" +
 				"targeting=%7B%22genders%22%3A%5B1%2C2%5D%2C%22age_min%22%3A45%2C%22age_max%22%3A55%2C%22relationship_statuses%22%3A%5B10%2C12%5D%2C%22interested_in%22%3A%5B1%2C2%5D%2C%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%2C%22DE%22%2C%22US%22%2C%22FR%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%223847%22%7D%2C%7B%22key%22%3A%221111%22%7D%2C%7B%22key%22%3A%221234%22%7D%2C%7B%22key%22%3A%229888%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%222430536%22%2C%22radius%22%3A12%2C%22distance_unit%22%3A%22mile%22%7D%2C%7B%22key%22%3A%22777555%22%2C%22radius%22%3A1024%2C%22distance_unit%22%3A%22kilometer%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22PL%3A62030%22%7D%2C%7B%22key%22%3A%22US%3A88123%22%7D%2C%7B%22key%22%3A%22FR%3A33144%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%2C%22recent%22%5D%7D%2C%22excluded_geo_locations%22%3A%7B%22countries%22%3A%5B%22HU%22%2C%22JP%22%5D%2C%22regions%22%3A%5B%7B%22key%22%3A%221122%22%7D%2C%7B%22key%22%3A%2231415%22%7D%5D%2C%22cities%22%3A%5B%7B%22key%22%3A%2288997766%22%2C%22radius%22%3A12345%2C%22distance_unit%22%3A%22mile%22%7D%5D%2C%22zips%22%3A%5B%7B%22key%22%3A%22JP%3A44552%22%7D%5D%2C%22location_types%22%3A%5B%22home%22%5D%7D%2C%22page_types%22%3A%5B%22desktopfeed%22%2C%22mobilefeed%22%5D%2C%22connections%22%3A%5B%22123456789%22%2C%2255442211%22%5D%2C%22excluded_connections%22%3A%5B%2233441122%22%5D%2C%22friends_of_connections%22%3A%5B%22987654321%22%5D%2C%22interests%22%3A%5B%7B%22id%22%3A986123123123%2C%22name%22%3A%22Football%22%7D%5D%2C%22behaviors%22%3A%5B%7B%22id%22%3A1%2C%22name%22%3A%22Some+behavior%22%7D%5D%2C%22education_schools%22%3A%5B%7B%22id%22%3A10593123549%2C%22name%22%3A%22Poznan+University+of+Technology%22%7D%5D%2C%22education_statuses%22%3A%5B9%5D%2C%22college_years%22%3A%5B8%5D%2C%22education_majors%22%3A%5B%7B%22id%22%3A12%2C%22name%22%3A%22Some+major%22%7D%5D%2C%22work_employers%22%3A%5B%7B%22id%22%3A43125%2C%22name%22%3A%22Super+company%22%7D%5D%2C%22work_positions%22%3A%5B%7B%22id%22%3A11111%2C%22name%22%3A%22Developer%22%7D%5D%7D&" +
 				"start_time=1432742400&end_time=1435420799&campaign_group_id=601123456789";
@@ -313,6 +315,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		adSet.setBidInfo(bidInfo);
 		adSet.setBillingEvent(AdSet.BillingEvent.APP_INSTALLS);
 		adSet.setOptimizationGoal(AdSet.OptimizationGoal.CLICKS);
+		adSet.setBidAmount(2222);
 		adSet.setBidType(BidType.ABSOLUTE_OCPM);
 		adSet.setDailyBudget("4000");
 		adSet.setLifetimeBudget("0");
@@ -364,7 +367,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAdSet_withPromotedObject() throws Exception {
-		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&billing_event=CLICKS&optimization_goal=CLICKS&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&promoted_object=%7B%22page_id%22%3A%22111222333444555%22%7D&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
+		String requestBody = "date_format=U&name=Test+AdSet&campaign_status=PAUSED&is_autobid=true&billing_event=CLICKS&optimization_goal=CLICKS&bid_amount=3333&bid_type=ABSOLUTE_OCPM&daily_budget=null&lifetime_budget=200&promoted_object=%7B%22page_id%22%3A%22111222333444555%22%7D&targeting=%7B%22geo_locations%22%3A%7B%22countries%22%3A%5B%22PL%22%5D%7D%7D&end_time=1432231200&campaign_group_id=600123456789";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -387,7 +390,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void updateAdSet() throws Exception {
-		String requestBody = "date_format=U&name=New+AdSet+name&campaign_status=ARCHIVED&is_autobid=true&daily_budget=null&lifetime_budget=50000&start_time=1432833720";
+		String requestBody = "date_format=U&name=New+AdSet+name&campaign_status=ARCHIVED&is_autobid=true&bid_amount=0&daily_budget=null&lifetime_budget=50000&start_time=1432833720";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -430,7 +433,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version24_budgetFieldsAreStringsNow() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
@@ -445,7 +448,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version24_newOptimizationGoalField() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
@@ -457,13 +460,25 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version24_newBillingEventField() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
 		AdSet adSet = facebookAds.adSetOperations().getAdSet("700123456789");
 
 		assertEquals(AdSet.BillingEvent.CLICKS, adSet.getBillingEvent());
+		mockServer.verify();
+	}
+
+	@Test
+	public void version24_newBidAmountField() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbid_type%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Cstart_time%2Ctargeting%2Cupdated_time"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("700123456789");
+
+		assertEquals(4444, adSet.getBidAmount());
 		mockServer.verify();
 	}
 
@@ -525,6 +540,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		adSet.setStatus(AdSetStatus.PAUSED);
 		adSet.setBillingEvent(AdSet.BillingEvent.CLICKS);
 		adSet.setOptimizationGoal(AdSet.OptimizationGoal.CLICKS);
+		adSet.setBidAmount(3333);
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		adSet.setEndTime(formatter.parse("2015-05-21 20:00:00"));
 		adSet.setName("Test AdSet");

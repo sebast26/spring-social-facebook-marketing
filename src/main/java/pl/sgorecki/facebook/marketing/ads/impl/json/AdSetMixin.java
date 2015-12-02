@@ -44,6 +44,9 @@ abstract public class AdSetMixin {
 	@JsonProperty("optimization_goal")
 	AdSet.OptimizationGoal optimizationGoal;
 
+	@JsonProperty("bid_amount")
+	int bidAmount;
+
 	@JsonProperty("budget_remaining")
 	String budgetRemaining;
 

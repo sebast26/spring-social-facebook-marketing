@@ -13,6 +13,7 @@
   "is_autobid": false,
   "billing_event": "VIDEO_VIEWS",
   "optimization_goal": "OFFER_CLAIMS",
+  "bid_amount": 5000,
   "lifetime_budget": "0",
   "name": "Test promoted object",
   "promoted_object": {
