@@ -38,6 +38,9 @@ abstract public class AdSetMixin {
 	@JsonProperty("bid_type")
 	BidType bidType;
 
+	@JsonProperty("billing_event")
+	AdSet.BillingEvent billingEvent;
+
 	@JsonProperty("optimization_goal")
 	AdSet.OptimizationGoal optimizationGoal;
 

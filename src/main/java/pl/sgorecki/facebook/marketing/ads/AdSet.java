@@ -21,6 +21,7 @@ public class AdSet extends FacebookObject {
 	private boolean autobid;
 	private BidInfo bidInfo;
 	private BidType bidType;
+	private BillingEvent billingEvent;
 	private OptimizationGoal optimizationGoal;
 
 	private String budgetRemaining;
@@ -94,6 +95,18 @@ public class AdSet extends FacebookObject {
 
 	public OptimizationGoal getOptimizationGoal() {
 		return optimizationGoal;
+	}
+
+	public void setOptimizationGoal(OptimizationGoal optimizationGoal) {
+		this.optimizationGoal = optimizationGoal;
+	}
+
+	public BillingEvent getBillingEvent() {
+		return billingEvent;
+	}
+
+	public void setBillingEvent(BillingEvent billingEvent) {
+		this.billingEvent = billingEvent;
 	}
 
 	public String getBudgetRemaining() {
@@ -174,11 +187,26 @@ public class AdSet extends FacebookObject {
 		}
 	}
 
+	public enum BillingEvent {
+		UNKNOWN, APP_INSTALLS, CLICKS, IMPRESSIONS, LINK_CLICKS, OFFER_CLAIMS, PAGE_LIKES, POST_ENGAGEMENT, VIDEO_VIEWS;
+
+		@JsonCreator
+		public static BillingEvent fromValue(String value) {
+			for (BillingEvent event : BillingEvent.values()) {
+				if (event.name().equals(value)) {
+					return event;
+				}
+			}
+			return UNKNOWN;
+		}
+	}
+
 	public enum OptimizationGoal {
 		UNKNOWN, NONE, APP_INSTALLS, BRAND_AWARENESS, CLICKS, ENGAGED_USERS, EXTERNAL, EVENT_RESPONSES, IMPRESSIONS,
 		LEAD_GENERATION, LINK_CLICKS, OFFER_CLAIMS, OFFSITE_CONVERSIONS, PAGE_ENGAGEMENT, PAGE_LIKES, POST_ENGAGEMENT,
 		REACH, SOCIAL_IMPRESSIONS, VIDEO_VIEWS;
 
+		@JsonCreator
 		public static OptimizationGoal fromValue(String value) {
 			for (OptimizationGoal goal : OptimizationGoal.values()) {
 				if (goal.name().equals(value)) {

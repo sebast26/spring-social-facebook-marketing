@@ -81,6 +81,12 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 				e.printStackTrace();
 			}
 		}
+		if (adSet.getBillingEvent() != null) {
+			data.set("billing_event", adSet.getBillingEvent().name());
+		}
+		if (adSet.getOptimizationGoal() != null) {
+			data.set("optimization_goal", adSet.getOptimizationGoal().name());
+		}
 		if (adSet.getBidType() != null) {
 			data.set("bid_type", adSet.getBidType().name());
 		}
