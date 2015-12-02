@@ -83,10 +83,6 @@ public class AdSet extends FacebookObject {
 		return bidInfo;
 	}
 
-	public void setBidInfo(BidInfo bidInfo) {
-		this.bidInfo = bidInfo;
-	}
-
 	public BidType getBidType() {
 		return bidType;
 	}
