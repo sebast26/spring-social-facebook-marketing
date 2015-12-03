@@ -79,13 +79,6 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 		if (ad.getStatus() != null) {
 			data.add("adgroup_status", ad.getStatus().name());
 		}
-		if (ad.getBidInfo() != null) {
-			try {
-				data.add("bid_info", mapper.writeValueAsString(ad.getBidInfo()));
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-		}
 		if (ad.getCreativeId() != null) {
 			data.add("creative", "{\"creative_id\": \"" + ad.getCreativeId() + "\"}");
 		}

@@ -52,10 +52,6 @@ public class Ad {
 		return bidInfo;
 	}
 
-	public void setBidInfo(BidInfo bidInfo) {
-		this.bidInfo = bidInfo;
-	}
-
 	public String getAccountId() {
 		return accountId;
 	}
