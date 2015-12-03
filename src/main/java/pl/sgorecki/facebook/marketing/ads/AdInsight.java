@@ -31,7 +31,6 @@ public class AdInsight {
 
 	// general fields
 	private double actionsPerImpression;
-	private int clicks;
 	private int uniqueClicks;
 	private double costPerResult;
 	private double costPerTotalAction;
@@ -119,10 +118,6 @@ public class AdInsight {
 
 	public double getActionsPerImpression() {
 		return actionsPerImpression;
-	}
-
-	public int getClicks() {
-		return clicks;
 	}
 
 	public int getUniqueClicks() {

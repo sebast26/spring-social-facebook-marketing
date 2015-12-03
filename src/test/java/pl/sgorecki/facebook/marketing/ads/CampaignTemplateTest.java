@@ -388,7 +388,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignInsights() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cclicks%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign-insights"), MediaType.APPLICATION_JSON));
@@ -397,7 +397,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("123456789", insight.getAccountId());
 		assertEquals("Test account name", insight.getAccountName());
 		assertEquals(0.016042780748663, insight.getActionsPerImpression(), EPSILON);
-		assertEquals(8, insight.getClicks());
 		assertEquals(5, insight.getUniqueClicks());
 		assertEquals(0.66666666666667, insight.getCostPerResult(), EPSILON);
 		assertEquals(0.66666666666667, insight.getCostPerTotalAction(), EPSILON);

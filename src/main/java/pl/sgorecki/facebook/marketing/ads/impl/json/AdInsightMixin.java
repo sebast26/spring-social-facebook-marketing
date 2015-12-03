@@ -60,9 +60,6 @@ public abstract class AdInsightMixin {
 	@JsonProperty("actions_per_impression")
 	double actionsPerImpression;
 
-	@JsonProperty("clicks")
-	int clicks;
-
 	@JsonProperty("unique_clicks")
 	int uniqueClicks;
 
