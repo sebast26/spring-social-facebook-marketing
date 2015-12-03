@@ -11,6 +11,8 @@ public class Ad {
 	private String id;
 	private AdStatus status;
 	private String name;
+
+	private int bidAmount;
 	private BidType bidType;
 	private BidInfo bidInfo;
 
@@ -42,6 +44,14 @@ public class Ad {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getBidAmount() {
+		return bidAmount;
+	}
+
+	public void setBidAmount(int bidAmount) {
+		this.bidAmount = bidAmount;
 	}
 
 	public BidType getBidType() {

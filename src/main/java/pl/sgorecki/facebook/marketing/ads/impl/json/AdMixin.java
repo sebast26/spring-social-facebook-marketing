@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Annotated mixin to add Jackson annotations to Ad.
  *
- * @author Sebastian Górecki
+ * @author Sebastian Gï¿½recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdMixin {
@@ -34,6 +34,9 @@ public class AdMixin {
 
 	@JsonProperty("name")
 	String name;
+
+	@JsonProperty("bid_amount")
+	int bidAmount;
 
 	@JsonProperty("bid_type")
 	BidType bidType;
