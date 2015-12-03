@@ -66,7 +66,7 @@ public class AdCampaign extends FacebookObject {
 	}
 
 	public enum BuyingType {
-		AUCTION, FIXED_CPM, RESERVED, MIXED, UNKNOWN;
+		AUCTION, RESERVED, MIXED, UNKNOWN;
 
 		@JsonCreator
 		public static BuyingType fromValue(String value) {

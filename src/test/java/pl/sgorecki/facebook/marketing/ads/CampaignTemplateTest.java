@@ -37,7 +37,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(null, campaigns.get(0).getSpendCap());
 		assertEquals("602123456789", campaigns.get(1).getId());
 		assertEquals("123456789", campaigns.get(1).getAccountId());
-		assertEquals(BuyingType.FIXED_CPM, campaigns.get(1).getBuyingType());
+		assertEquals(BuyingType.MIXED, campaigns.get(1).getBuyingType());
 		assertEquals(CampaignStatus.PAUSED, campaigns.get(1).getStatus());
 		assertEquals("Campaign #2", campaigns.get(1).getName());
 		assertEquals(CampaignObjective.NONE, campaigns.get(1).getObjective());
