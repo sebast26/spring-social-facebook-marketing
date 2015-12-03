@@ -35,7 +35,6 @@ public class AdInsight {
 	private int uniqueClicks;
 	private double costPerResult;
 	private double costPerTotalAction;
-	private double costPerClick;
 	private double costPerUniqueClick;
 	private double cpm;
 	private double cpp;
@@ -136,10 +135,6 @@ public class AdInsight {
 
 	public double getCostPerTotalAction() {
 		return costPerTotalAction;
-	}
-
-	public double getCostPerClick() {
-		return costPerClick;
 	}
 
 	public double getCostPerUniqueClick() {

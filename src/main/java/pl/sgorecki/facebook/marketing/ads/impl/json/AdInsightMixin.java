@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to AdInsight.
  *
- * @author Sebastian Górecki
+ * @author Sebastian Gï¿½recki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AdInsightMixin {
@@ -71,9 +71,6 @@ public abstract class AdInsightMixin {
 
 	@JsonProperty("cost_per_total_action")
 	double costPerTotalAction;
-
-	@JsonProperty("cpc")
-	double costPerClick;
 
 	@JsonProperty("cost_per_unique_click")
 	double costPerUniqueClick;
