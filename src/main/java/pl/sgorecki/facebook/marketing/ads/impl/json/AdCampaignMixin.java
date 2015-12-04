@@ -3,6 +3,8 @@ package pl.sgorecki.facebook.marketing.ads.impl.json;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.sgorecki.facebook.marketing.ads.AdCampaign;
+import pl.sgorecki.facebook.marketing.ads.ConfiguredStatus;
+import pl.sgorecki.facebook.marketing.ads.EffectiveStatus;
 
 /**
  * Annotated mixin to add Jackson annotations to AdCampaign.
@@ -23,6 +25,12 @@ abstract public class AdCampaignMixin {
 
 	@JsonProperty("campaign_group_status")
 	AdCampaign.CampaignStatus status;
+
+	@JsonProperty("configured_status")
+	ConfiguredStatus configuredStatus;
+
+	@JsonProperty("effective_status")
+	EffectiveStatus effectiveStatus;
 
 	@JsonProperty("name")
 	String name;

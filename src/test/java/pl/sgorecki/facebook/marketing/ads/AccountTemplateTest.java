@@ -211,7 +211,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdAccountCampaigns() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-account-campaigns"), MediaType.APPLICATION_JSON));

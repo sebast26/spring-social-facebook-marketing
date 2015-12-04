@@ -3,6 +3,8 @@ package pl.sgorecki.facebook.marketing.ads;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.social.facebook.api.FacebookObject;
 
+import java.util.Arrays;
+
 /**
  * Model class representing an ad campaign.
  *
@@ -13,6 +15,8 @@ public class AdCampaign extends FacebookObject {
 	private String accountId;
 	private BuyingType buyingType;
 	private CampaignStatus status;
+	private ConfiguredStatus configuredStatus;
+	private EffectiveStatus effectiveStatus;
 	private String name;
 	private CampaignObjective objective;
 	private String spendCap;
@@ -23,6 +27,14 @@ public class AdCampaign extends FacebookObject {
 
 	public void setStatus(CampaignStatus status) {
 		this.status = status;
+	}
+
+	public ConfiguredStatus getConfiguredStatus() {
+		return configuredStatus;
+	}
+
+	public EffectiveStatus getEffectiveStatus() {
+		return effectiveStatus;
 	}
 
 	public String getName() {
@@ -70,12 +82,10 @@ public class AdCampaign extends FacebookObject {
 
 		@JsonCreator
 		public static BuyingType fromValue(String value) {
-			for (BuyingType type : BuyingType.values()) {
-				if (type.name().equals(value)) {
-					return type;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(BuyingType.values())
+					.filter(type -> type.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 
@@ -84,12 +94,10 @@ public class AdCampaign extends FacebookObject {
 
 		@JsonCreator
 		public static CampaignStatus fromValue(String value) {
-			for (CampaignStatus status : CampaignStatus.values()) {
-				if (status.name().equals(value)) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(CampaignStatus.values())
+					.filter(status -> status.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 
@@ -100,12 +108,10 @@ public class AdCampaign extends FacebookObject {
 
 		@JsonCreator
 		public static CampaignObjective fromValue(String value) {
-			for (CampaignObjective objective : CampaignObjective.values()) {
-				if (objective.name().equals(value)) {
-					return objective;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(CampaignObjective.values())
+					.filter(objective -> objective.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 }

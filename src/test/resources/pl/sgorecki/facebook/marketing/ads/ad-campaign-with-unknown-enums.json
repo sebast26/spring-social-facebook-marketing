@@ -3,6 +3,8 @@
   "account_id": "123456789",
   "buying_type": "OTHER",
   "campaign_group_status": "DEACTIVATED",
+  "configured_status": "OTHER_STATUS",
+  "effective_status": "OTHER_EFFECTIVE_STATUS",
   "name": "The test campaign name",
   "objective": "AD_SELLING"
 }
