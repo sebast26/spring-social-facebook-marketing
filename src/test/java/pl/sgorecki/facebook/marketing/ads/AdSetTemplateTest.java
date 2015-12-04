@@ -247,10 +247,6 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(1, insight.getVideoStartActions().size());
 		assertEquals("video_view", insight.getVideoStartActions().get(0).getActionType());
 		assertEquals(0, insight.getVideoStartActions().get(0).getValue(), EPSILON);
-		assertEquals(1.3333333334, insight.getCostPerInlineLinkClick(), EPSILON);
-		assertEquals(0.9999999999, insight.getCostPerInlinePostEngagement(), EPSILON);
-		assertEquals(50, insight.getInlineLinkClicks());
-		assertEquals(77, insight.getInlinePostEngagement());
 
 		mockServer.verify();
 	}

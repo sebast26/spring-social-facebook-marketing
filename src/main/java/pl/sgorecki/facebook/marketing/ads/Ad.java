@@ -2,6 +2,7 @@ package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -10,6 +11,8 @@ import java.util.Date;
 public class Ad {
 	private String id;
 	private AdStatus status;
+	private ConfiguredStatus configuredStatus;
+	private EffectiveStatus effectiveStatus;
 	private String name;
 
 	private int bidAmount;
@@ -36,6 +39,14 @@ public class Ad {
 
 	public void setStatus(AdStatus status) {
 		this.status = status;
+	}
+
+	public ConfiguredStatus getConfiguredStatus() {
+		return configuredStatus;
+	}
+
+	public EffectiveStatus getEffectiveStatus() {
+		return effectiveStatus;
 	}
 
 	public String getName() {
@@ -104,12 +115,10 @@ public class Ad {
 
 		@JsonCreator
 		public static AdStatus fromValue(String value) {
-			for (AdStatus status : AdStatus.values()) {
-				if (status.name().equals(value)) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdStatus.values())
+					.filter(status -> status.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 }

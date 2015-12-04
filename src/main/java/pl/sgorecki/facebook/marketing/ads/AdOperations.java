@@ -11,7 +11,7 @@ import org.springframework.social.facebook.api.PagedList;
 public interface AdOperations {
 	static final String[] AD_FIELDS = {
 			"id", "account_id", "adgroup_status", "bid_amount", "bid_type", "bid_info", "campaign_id", "campaign_group_id",
-			"created_time", "creative", "name", "targeting", "updated_time"
+			"created_time", "creative", "name", "targeting", "updated_time", "configured_status", "effective_status"
 	};
 
 	static final String[] AD_INSIGHT_FIELDS = {

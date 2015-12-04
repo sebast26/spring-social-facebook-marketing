@@ -8,10 +8,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import pl.sgorecki.facebook.marketing.ads.Ad;
-import pl.sgorecki.facebook.marketing.ads.BidInfo;
-import pl.sgorecki.facebook.marketing.ads.BidType;
-import pl.sgorecki.facebook.marketing.ads.Targeting;
+import pl.sgorecki.facebook.marketing.ads.*;
 
 import java.io.IOException;
 import java.util.Date;
@@ -21,7 +18,7 @@ import java.util.Map;
 /**
  * Annotated mixin to add Jackson annotations to Ad.
  *
- * @author Sebastian G�recki
+ * @author Sebastian Górecki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdMixin {
@@ -31,6 +28,12 @@ public class AdMixin {
 
 	@JsonProperty("adgroup_status")
 	Ad.AdStatus status;
+
+	@JsonProperty("configured_status")
+	ConfiguredStatus configuredStatus;
+
+	@JsonProperty("effective_status")
+	EffectiveStatus effectiveStatus;
 
 	@JsonProperty("name")
 	String name;
