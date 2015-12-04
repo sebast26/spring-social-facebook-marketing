@@ -4,6 +4,8 @@
   "campaign_group_id": "600123456789",
   "name": "Test AdSet",
   "campaign_status": "ACTIVE",
+  "configured_status": "PAUSED",
+  "effective_status": "CAMPAIGN_PAUSED",
   "is_autobid": true,
   "billing_event": "CLICKS",
   "optimization_goal": "PAGE_ENGAGEMENT",

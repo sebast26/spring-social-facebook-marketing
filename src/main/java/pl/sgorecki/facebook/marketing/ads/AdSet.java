@@ -17,6 +17,8 @@ public class AdSet extends FacebookObject {
 	private String campaignId;
 	private String name;
 	private AdSetStatus status;
+	private ConfiguredStatus configuredStatus;
+	private EffectiveStatus effectiveStatus;
 
 	private boolean autobid;
 	private BidInfo bidInfo;
@@ -64,6 +66,14 @@ public class AdSet extends FacebookObject {
 
 	public AdSetStatus getStatus() {
 		return status;
+	}
+
+	public ConfiguredStatus getConfiguredStatus() {
+		return configuredStatus;
+	}
+
+	public EffectiveStatus getEffectiveStatus() {
+		return effectiveStatus;
 	}
 
 	public void setStatus(AdSetStatus status) {

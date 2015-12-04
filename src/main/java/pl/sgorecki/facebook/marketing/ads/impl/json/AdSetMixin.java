@@ -29,6 +29,12 @@ abstract public class AdSetMixin {
 	@JsonProperty("campaign_status")
 	AdSet.AdSetStatus status;
 
+	@JsonProperty("configured_status")
+	ConfiguredStatus configuredStatus;
+
+	@JsonProperty("effective_status")
+	EffectiveStatus effectiveStatus;
+
 	@JsonProperty("is_autobid")
 	boolean autobid;
 

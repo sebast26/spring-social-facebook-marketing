@@ -14,7 +14,7 @@ public interface AdSetOperations {
 	static final String[] AD_SET_FIELDS = {
 			"account_id", "bid_info", "billing_event", "bid_amount", "budget_remaining", "campaign_group_id", "campaign_status", "created_time",
 			"creative_sequence", "daily_budget", "end_time", "id", "is_autobid", "lifetime_budget", "name", "optimization_goal",
-			"promoted_object", "rtb_flag", "start_time", "targeting", "updated_time"
+			"promoted_object", "rtb_flag", "start_time", "targeting", "updated_time", "configured_status", "effective_status"
 	};
 
 	static final String[] AD_SET_INSIGHT_FIELDS = {
