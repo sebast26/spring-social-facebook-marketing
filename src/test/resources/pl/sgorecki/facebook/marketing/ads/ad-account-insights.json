@@ -31,6 +31,10 @@
       "total_action_value": 0,
       "total_actions": 3,
       "total_unique_actions": 2,
+      "cost_per_inline_link_click": 1.3333333334,
+      "cost_per_inline_post_engagement": 0.9999999999,
+      "inline_link_clicks": 50,
+      "inline_post_engagement": 77,
       "actions": [
         {
           "action_type": "comment",

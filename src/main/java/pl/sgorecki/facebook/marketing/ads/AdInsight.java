@@ -57,6 +57,10 @@ public class AdInsight {
 	private int totalActionValue;
 	private int totalActions;
 	private int totalUniqueActions;
+	private int inlineLinkClicks;
+	private double costPerInlineLinkClick;
+	private int inlinePostEngagement;
+	private double costPerInlinePostEngagement;
 
 	// action and video fields
 	private List<AdInsightAction> actions;
@@ -222,6 +226,22 @@ public class AdInsight {
 
 	public int getTotalUniqueActions() {
 		return totalUniqueActions;
+	}
+
+	public int getInlineLinkClicks() {
+		return inlineLinkClicks;
+	}
+
+	public double getCostPerInlineLinkClick() {
+		return costPerInlineLinkClick;
+	}
+
+	public int getInlinePostEngagement() {
+		return inlinePostEngagement;
+	}
+
+	public double getCostPerInlinePostEngagement() {
+		return costPerInlinePostEngagement;
 	}
 
 	public List<AdInsightAction> getActions() {

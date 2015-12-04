@@ -26,7 +26,8 @@ public interface AccountOperations {
 			"frequency", "impressions", "unique_impressions", "objective", "reach", "result_rate", "results", "roas",
 			"social_clicks", "unique_social_clicks", "social_impressions", "unique_social_impressions", "social_reach",
 			"spend", "today_spend", "total_action_value", "total_actions", "total_unique_actions", "actions",
-			"unique_actions", "cost_per_action_type", "video_start_actions"
+			"unique_actions", "cost_per_action_type", "video_start_actions", "inline_link_clicks", "cost_per_inline_link_click",
+			"inline_post_engagement", "cost_per_inline_post_engagement"
 	};
 
 	/**

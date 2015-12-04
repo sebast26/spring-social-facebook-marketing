@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian GÃ³recki
  */
 public class AbstractFacebookAdsApiTest {
 	protected static final String ACCESS_TOKEN = "someAccessToken";

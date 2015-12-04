@@ -22,14 +22,14 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
- * @author Sebastian Górecki
+ * @author Sebastian Gï¿½recki
  */
 public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
 	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.4/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
 	private static final String GET_ADACCOUNT_USERS_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789/users";
-	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.4/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions";
+	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.4/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement";
 
 
 	@Test
@@ -377,6 +377,10 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(1, insight.getVideoStartActions().size());
 		assertEquals("video_view", insight.getVideoStartActions().get(0).getActionType());
 		assertEquals(0, insight.getVideoStartActions().get(0).getValue(), EPSILON);
+		assertEquals(1.3333333334, insight.getCostPerInlineLinkClick(), EPSILON);
+		assertEquals(0.9999999999, insight.getCostPerInlinePostEngagement(), EPSILON);
+		assertEquals(50, insight.getInlineLinkClicks());
+		assertEquals(77, insight.getInlinePostEngagement());
 	}
 
 	@Test(expected = NotAuthorizedException.class)

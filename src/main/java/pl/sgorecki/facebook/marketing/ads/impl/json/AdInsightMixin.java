@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Annotated mixin to add Jackson annotations to AdInsight.
  *
- * @author Sebastian G�recki
+ * @author Sebastian Górecki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AdInsightMixin {
@@ -137,6 +137,19 @@ public abstract class AdInsightMixin {
 
 	@JsonProperty("total_unique_actions")
 	int totalUniqueActions;
+
+	@JsonProperty("inline_link_clicks")
+	int inlineLinkClicks;
+
+	@JsonProperty("cost_per_inline_link_click")
+	double costPerInlineLinkClick;
+
+	@JsonProperty("inline_post_engagement")
+	int inlinePostEngagement;
+
+	@JsonProperty("cost_per_inline_post_engagement")
+	double costPerInlinePostEngagement;
+
 
 	// action and video fields
 	@JsonProperty("actions")
