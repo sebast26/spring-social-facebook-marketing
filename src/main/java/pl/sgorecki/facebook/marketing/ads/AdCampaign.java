@@ -14,11 +14,13 @@ public class AdCampaign extends FacebookObject {
 	private String id;
 	private String accountId;
 	private BuyingType buyingType;
+	private boolean canUseSpendCap;
 	private CampaignStatus status;
 	private ConfiguredStatus configuredStatus;
 	private EffectiveStatus effectiveStatus;
 	private String name;
 	private CampaignObjective objective;
+	private PromotedObject promotedObject;
 	private String spendCap;
 
 	public CampaignStatus getStatus() {
@@ -61,6 +63,14 @@ public class AdCampaign extends FacebookObject {
 		this.buyingType = buyingType;
 	}
 
+	public void setPromotedObject(PromotedObject promotedObject) {
+		this.promotedObject = promotedObject;
+	}
+
+	public boolean isCanUseSpendCap() {
+		return canUseSpendCap;
+	}
+
 	public CampaignObjective getObjective() {
 		return objective;
 	}
@@ -78,7 +88,7 @@ public class AdCampaign extends FacebookObject {
 	}
 
 	public enum BuyingType {
-		AUCTION, RESERVED, MIXED, UNKNOWN;
+		AUCTION, RESERVED, UNKNOWN;
 
 		@JsonCreator
 		public static BuyingType fromValue(String value) {
@@ -102,9 +112,9 @@ public class AdCampaign extends FacebookObject {
 	}
 
 	public enum CampaignObjective {
-		CANVAS_APP_ENGAGEMENT, CANVAS_APP_INSTALLS, EVENT_RESPONSES, LOCAL_AWARENESS, MOBILE_APP_ENGAGEMENT,
-		MOBILE_APP_INSTALLS, NONE, OFFER_CLAIMS, PAGE_LIKES, POST_ENGAGEMENT, VIDEO_VIEWS, WEBSITE_CLICKS,
-		WEBSITE_CONVERSIONS, UNKNOWN;
+		BRAND_AWARENESS, CANVAS_APP_ENGAGEMENT, CANVAS_APP_INSTALLS, CONVERSIONS, EVENT_RESPONSES, EXTERNAL, LEAD_GENERATION,
+		LINK_CLICKS, LOCAL_AWARENESS, MOBILE_APP_ENGAGEMENT, MOBILE_APP_INSTALLS, OFFER_CLAIMS, PAGE_LIKES, POST_ENGAGEMENT,
+		PRODUCT_CATALOG_SALES, VIDEO_VIEWS, UNKNOWN;
 
 		@JsonCreator
 		public static CampaignObjective fromValue(String value) {

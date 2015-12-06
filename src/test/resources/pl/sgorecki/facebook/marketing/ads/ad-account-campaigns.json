@@ -4,25 +4,31 @@
       "id": "601123456789",
       "account_id": "123456789",
       "buying_type": "AUCTION",
-      "campaign_group_status": "ACTIVE",
+      "can_use_spend_cap": true,
+      "configured_status": "ACTIVE",
+      "effective_status": "ACTIVE",
       "name": "Campaign #1",
       "objective": "POST_ENGAGEMENT"
     },
     {
       "id": "602123456789",
       "account_id": "123456789",
-      "buying_type": "MIXED",
-      "campaign_group_status": "PAUSED",
+      "buying_type": "AUCTION",
+      "can_use_spend_cap": false,
+      "configured_status": "PAUSED",
+      "effective_status": "PAUSED",
       "name": "Campaign #2",
-      "objective": "NONE"
+      "objective": "POST_ENGAGEMENT"
     },
     {
       "id": "603123456789",
       "account_id": "123456789",
       "buying_type": "RESERVED",
-      "campaign_group_status": "ARCHIVED",
+      "can_use_spend_cap": true,
+      "configured_status": "ARCHIVED",
+      "effective_status": "ARCHIVED",
       "name": "Campaign #3",
-      "objective": "WEBSITE_CONVERSIONS",
+      "objective": "PAGE_LIKES",
       "spend_cap": 50000
     }
   ],

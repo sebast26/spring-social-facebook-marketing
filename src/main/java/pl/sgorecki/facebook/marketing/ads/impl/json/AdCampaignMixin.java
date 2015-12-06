@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.sgorecki.facebook.marketing.ads.AdCampaign;
 import pl.sgorecki.facebook.marketing.ads.ConfiguredStatus;
 import pl.sgorecki.facebook.marketing.ads.EffectiveStatus;
+import pl.sgorecki.facebook.marketing.ads.PromotedObject;
 
 /**
  * Annotated mixin to add Jackson annotations to AdCampaign.
@@ -23,7 +24,10 @@ abstract public class AdCampaignMixin {
 	@JsonProperty("buying_type")
 	AdCampaign.BuyingType buyingType;
 
-	@JsonProperty("campaign_group_status")
+	@JsonProperty("can_use_spend_cap")
+	boolean canUseSpendCap;
+
+	@JsonProperty("status")
 	AdCampaign.CampaignStatus status;
 
 	@JsonProperty("configured_status")

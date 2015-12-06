@@ -13,8 +13,8 @@ import org.springframework.social.facebook.api.PagedList;
 public interface CampaignOperations {
 
 	static final String[] AD_CAMPAIGN_FIELDS = {
-			"id", "account_id", "buying_type", "status", "name", "objective", "spend_cap",
-			"configured_status", "effective_status"
+			"id", "account_id", "buying_type", "can_use_spend_cap", "configured_status", "effective_status",
+			"name", "objective", "spend_cap",
 	};
 
 	static final String[] AD_CAMPAIGN_INSIGHT_FIELDS = {

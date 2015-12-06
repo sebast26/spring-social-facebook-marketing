@@ -22,7 +22,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaigns() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-account-campaigns"), MediaType.APPLICATION_JSON));
@@ -31,23 +31,29 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("601123456789", campaigns.get(0).getId());
 		assertEquals("123456789", campaigns.get(0).getAccountId());
 		assertEquals(BuyingType.AUCTION, campaigns.get(0).getBuyingType());
-		assertEquals(CampaignStatus.ACTIVE, campaigns.get(0).getStatus());
+		assertEquals(true, campaigns.get(0).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.ACTIVE, campaigns.get(0).getConfiguredStatus());
+		assertEquals(EffectiveStatus.ACTIVE, campaigns.get(0).getEffectiveStatus());
 		assertEquals("Campaign #1", campaigns.get(0).getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaigns.get(0).getObjective());
 		assertEquals(null, campaigns.get(0).getSpendCap());
 		assertEquals("602123456789", campaigns.get(1).getId());
 		assertEquals("123456789", campaigns.get(1).getAccountId());
-		assertEquals(BuyingType.MIXED, campaigns.get(1).getBuyingType());
-		assertEquals(CampaignStatus.PAUSED, campaigns.get(1).getStatus());
+		assertEquals(BuyingType.AUCTION, campaigns.get(1).getBuyingType());
+		assertEquals(false, campaigns.get(1).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.PAUSED, campaigns.get(1).getConfiguredStatus());
+		assertEquals(EffectiveStatus.PAUSED, campaigns.get(1).getEffectiveStatus());
 		assertEquals("Campaign #2", campaigns.get(1).getName());
-		assertEquals(CampaignObjective.NONE, campaigns.get(1).getObjective());
+		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaigns.get(1).getObjective());
 		assertEquals(null, campaigns.get(1).getSpendCap());
 		assertEquals("603123456789", campaigns.get(2).getId());
 		assertEquals("123456789", campaigns.get(2).getAccountId());
 		assertEquals(BuyingType.RESERVED, campaigns.get(2).getBuyingType());
-		assertEquals(CampaignStatus.ARCHIVED, campaigns.get(2).getStatus());
+		assertEquals(true, campaigns.get(2).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.ARCHIVED, campaigns.get(2).getConfiguredStatus());
+		assertEquals(EffectiveStatus.ARCHIVED, campaigns.get(2).getEffectiveStatus());
 		assertEquals("Campaign #3", campaigns.get(2).getName());
-		assertEquals(CampaignObjective.WEBSITE_CONVERSIONS, campaigns.get(2).getObjective());
+		assertEquals(CampaignObjective.PAGE_LIKES, campaigns.get(2).getObjective());
 		assertEquals("50000", campaigns.get(2).getSpendCap());
 	}
 
@@ -58,7 +64,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getCampaign() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign"), MediaType.APPLICATION_JSON));
@@ -67,7 +73,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("600123456789", campaign.getId());
 		assertEquals("123456789", campaign.getAccountId());
 		assertEquals(BuyingType.AUCTION, campaign.getBuyingType());
-		assertEquals(CampaignStatus.ACTIVE, campaign.getStatus());
 		assertEquals(ConfiguredStatus.ACTIVE, campaign.getConfiguredStatus());
 		assertEquals(EffectiveStatus.PENDING_REVIEW, campaign.getEffectiveStatus());
 		assertEquals("The test campaign name", campaign.getName());
@@ -77,7 +82,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getCampaign_withUnknownEnums() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign-with-unknown-enums"), MediaType.APPLICATION_JSON));
@@ -86,7 +91,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("600123456789", campaign.getId());
 		assertEquals("123456789", campaign.getAccountId());
 		assertEquals(BuyingType.UNKNOWN, campaign.getBuyingType());
-		assertEquals(CampaignStatus.UNKNOWN, campaign.getStatus());
 		assertEquals(ConfiguredStatus.UNKNOWN, campaign.getConfiguredStatus());
 		assertEquals(EffectiveStatus.UNKNOWN, campaign.getEffectiveStatus());
 		assertEquals("The test campaign name", campaign.getName());
@@ -96,7 +100,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getCampaign_withEmptyBuyingType() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/609123456789?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/609123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign-empty-buying-type"), MediaType.APPLICATION_JSON));
@@ -105,7 +109,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("609123456789", campaign.getId());
 		assertEquals("123456789", campaign.getAccountId());
 		assertNull(campaign.getBuyingType());
-		assertEquals(CampaignStatus.ACTIVE, campaign.getStatus());
 		assertEquals("The test campaign name", campaign.getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaign.getObjective());
 		assertEquals("1000", campaign.getSpendCap());
@@ -119,7 +122,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignSets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adcampaigns?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adsets?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
@@ -182,7 +185,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withNameOnly() throws Exception {
 		String requestBody = "name=Campaign+created+by+SpringSocialFacebook";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -196,7 +199,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withStatusOnly() throws Exception {
 		String requestBody = "status=PAUSED";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -211,7 +214,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	public void createCampaign_withInvalidStatus() throws Exception {
 		// new campaigns can be created only with statuses ACTIVE or PAUSED
 		String requestBody = "name=Campaign+with+invalid+status&status=ARCHIVED";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -232,7 +235,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withObjectiveOnly() throws Exception {
 		String requestBody = "objective=VIDEO_VIEWS";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -246,7 +249,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withSpendCapOnly() throws Exception {
 		String requestBody = "spend_cap=240000";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -260,7 +263,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withBuyingTypeOnly() throws Exception {
 		String requestBody = "buying_type=AUCTION";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -275,7 +278,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createCampaign_withAllFields() throws Exception {
 		String requestBody = "name=Full+campaign&status=ACTIVE&objective=PAGE_LIKES&spend_cap=60000&buying_type=RESERVED";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -471,7 +474,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version24_spendCapToString() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign"), MediaType.APPLICATION_JSON));
@@ -483,7 +486,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version25_addStatusesFields() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign"), MediaType.APPLICATION_JSON));

@@ -19,7 +19,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 
 	public PagedList<AdCampaign> getAdCampaigns(String accountId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcampaign_groups", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "campaigns", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
 	}
 
 	public AdCampaign getAdCampaign(String id) {
@@ -29,7 +29,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 
 	public PagedList<AdSet> getAdCampaignSets(String campaignId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(campaignId, "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchConnections(campaignId, "adsets", AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public AdInsight getAdCampaignInsight(String campaignId) {
@@ -44,7 +44,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 		if (adCampaign.getBuyingType() != null) {
 			map.add("buying_type", adCampaign.getBuyingType().name());
 		}
-		return marketingApi.publish(getAdAccountId(accountId), "adcampaign_groups", map);
+		return marketingApi.publish(getAdAccountId(accountId), "campaigns", map);
 	}
 
 	public boolean updateAdCampaign(String campaignId, AdCampaign adCampaign) {
@@ -56,7 +56,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 	public void deleteAdCampaign(String campaignId) {
 		requireAuthorization();
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		map.add("campaign_group_status", AdCampaign.CampaignStatus.DELETED.name());
+		map.add("status", AdCampaign.CampaignStatus.DELETED.name());
 		marketingApi.post(campaignId, map);
 	}
 

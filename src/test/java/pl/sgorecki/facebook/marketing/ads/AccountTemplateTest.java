@@ -216,7 +216,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdAccountCampaigns() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns?fields=id%2Caccount_id%2Cbuying_type%2Ccan_use_spend_cap%2Cconfigured_status%2Ceffective_status%2Cname%2Cobjective%2Cspend_cap"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-account-campaigns"), MediaType.APPLICATION_JSON));
@@ -225,23 +225,29 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals("601123456789", campaigns.get(0).getId());
 		assertEquals("123456789", campaigns.get(0).getAccountId());
 		assertEquals(BuyingType.AUCTION, campaigns.get(0).getBuyingType());
-		assertEquals(CampaignStatus.ACTIVE, campaigns.get(0).getStatus());
+		assertEquals(true, campaigns.get(0).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.ACTIVE, campaigns.get(0).getConfiguredStatus());
+		assertEquals(EffectiveStatus.ACTIVE, campaigns.get(0).getEffectiveStatus());
 		assertEquals("Campaign #1", campaigns.get(0).getName());
 		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaigns.get(0).getObjective());
 		assertEquals(null, campaigns.get(0).getSpendCap());
 		assertEquals("602123456789", campaigns.get(1).getId());
 		assertEquals("123456789", campaigns.get(1).getAccountId());
-		assertEquals(BuyingType.MIXED, campaigns.get(1).getBuyingType());
-		assertEquals(CampaignStatus.PAUSED, campaigns.get(1).getStatus());
+		assertEquals(BuyingType.AUCTION, campaigns.get(1).getBuyingType());
+		assertEquals(false, campaigns.get(1).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.PAUSED, campaigns.get(1).getConfiguredStatus());
+		assertEquals(EffectiveStatus.PAUSED, campaigns.get(1).getEffectiveStatus());
 		assertEquals("Campaign #2", campaigns.get(1).getName());
-		assertEquals(CampaignObjective.NONE, campaigns.get(1).getObjective());
+		assertEquals(CampaignObjective.POST_ENGAGEMENT, campaigns.get(1).getObjective());
 		assertEquals(null, campaigns.get(1).getSpendCap());
 		assertEquals("603123456789", campaigns.get(2).getId());
 		assertEquals("123456789", campaigns.get(2).getAccountId());
 		assertEquals(BuyingType.RESERVED, campaigns.get(2).getBuyingType());
-		assertEquals(CampaignStatus.ARCHIVED, campaigns.get(2).getStatus());
+		assertEquals(true, campaigns.get(2).isCanUseSpendCap());
+		assertEquals(ConfiguredStatus.ARCHIVED, campaigns.get(2).getConfiguredStatus());
+		assertEquals(EffectiveStatus.ARCHIVED, campaigns.get(2).getEffectiveStatus());
 		assertEquals("Campaign #3", campaigns.get(2).getName());
-		assertEquals(CampaignObjective.WEBSITE_CONVERSIONS, campaigns.get(2).getObjective());
+		assertEquals(CampaignObjective.PAGE_LIKES, campaigns.get(2).getObjective());
 		assertEquals("50000", campaigns.get(2).getSpendCap());
 	}
 
