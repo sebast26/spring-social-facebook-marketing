@@ -24,10 +24,13 @@
   ],
   "created_time": "2015-02-19T00:31:33+0100",
   "currency": "PLN",
+  "disable_reason": 0,
   "end_advertiser": 987654321,
   "funding_source": "1122334455",
   "is_personal": 1,
   "media_agency": 54321,
+  "min_campaign_group_spend_cap": "50000",
+  "min_daily_budget": 200,
   "name": "This is a test account",
   "offsite_pixels_tos_accepted": false,
   "partner": 111222333,
@@ -48,5 +51,7 @@
       }
     ]
   },
-  "tax_id_status": 3
+  "tax_id": "PL1231231122",
+  "tax_id_status": 3,
+  "tax_id_type": "55"
 }

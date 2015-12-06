@@ -15,9 +15,10 @@ public interface AccountOperations {
 	static final String[] AD_ACCOUNT_FIELDS = {
 			"id", "account_id", "account_status", "age", "amount_spent", "balance", "business_city", "business_country_code",
 			"business_name", "business_state", "business_street", "business_street2", "business_zip", "capabilities",
-			"created_time", "currency", "end_advertiser", "funding_source", "funding_source_details",
-			"is_personal", "media_agency", "name", "offsite_pixels_tos_accepted", "partner", "spend_cap", "timezone_id",
-			"timezone_name", "timezone_offset_hours_utc", "users", "tax_id_status"
+			"created_time", "currency", "disable_reason", "end_advertiser", "funding_source", "funding_source_details",
+			"is_personal", "media_agency", "min_campaign_group_spend_cap", "min_daily_budget", "name",
+			"offsite_pixels_tos_accepted", "partner", "spend_cap", "timezone_id", "timezone_name", "timezone_offset_hours_utc",
+			"users", "tax_id", "tax_id_status", "tax_id_type"
 	};
 
 	static final String[] AD_ACCOUNT_INSIGHT_FIELDS = {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import org.springframework.social.facebook.api.FacebookObject;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +33,14 @@ public class AdAccount extends FacebookObject {
 	private List<Capability> capabilities;
 	private Date createdTime;
 	private String currency;
+	private DisableReason disableReason;
 	private long endAdvertiser;
 	private String fundingSource;
 	private Map<String, Object> fundingSourceDetails;
 	private int isPersonal;
 	private long mediaAgency;
+	private String minCampaignGroupSpendCap;
+	private int minDailyBudget;
 	private String name;
 	private boolean offsitePixelsTOSAccepted;
 	private long partner;
@@ -46,7 +50,9 @@ public class AdAccount extends FacebookObject {
 	private int timezoneOffsetHoursUTC;
 	private Map<String, Integer> tosAccepted;
 	private List<AdUser> users;
+	private String taxId;
 	private TaxStatus taxStatus;
+	private String taxIdType;
 
 	public String getId() {
 		return id;
@@ -120,6 +126,10 @@ public class AdAccount extends FacebookObject {
 		return currency;
 	}
 
+	public DisableReason getDisableReason() {
+		return disableReason;
+	}
+
 	public long getEndAdvertiser() {
 		return endAdvertiser;
 	}
@@ -188,9 +198,25 @@ public class AdAccount extends FacebookObject {
 		return taxStatus;
 	}
 
+	public String getTaxIdType() {
+		return taxIdType;
+	}
+
+	public String getMinCampaignGroupSpendCap() {
+		return minCampaignGroupSpendCap;
+	}
+
+	public int getMinDailyBudget() {
+		return minDailyBudget;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
 	public enum AccountStatus {
-		ACTIVE(1), DISABLED(2), UNSETTLED(3), PENDING_REVIEW(7), IN_GRACE_PERIOD(9), TEMPORARILY_UNAVAILABLE(101),
-		PENDING_CLOSURE(100), UNKNOWN(0);
+		ACTIVE(1), DISABLED(2), UNSETTLED(3), PENDING_RISK_REVIEW(7), IN_GRACE_PERIOD(9), PENDING_CLOSURE(100), CLOSED(101),
+		PENDING_SETTLEMENT(102), ANY_ACTIVE(201), ANY_CLOSED(202), UNKNOWN(0);
 
 		private final int value;
 
@@ -200,12 +226,10 @@ public class AdAccount extends FacebookObject {
 
 		@JsonCreator
 		public static AccountStatus fromValue(int value) {
-			for (AccountStatus status : AccountStatus.values()) {
-				if (status.getValue() == value) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AccountStatus.values())
+					.filter(status -> status.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonGetter
@@ -225,12 +249,33 @@ public class AdAccount extends FacebookObject {
 
 		@JsonCreator
 		public static Capability fromValue(String value) {
-			for (Capability capability : Capability.values()) {
-				if (capability.name().equals(value)) {
-					return capability;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(Capability.values())
+					.filter(capability -> capability.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
+		}
+	}
+
+	public enum DisableReason {
+		UNKNOWN(-1), NONE(0), ADS_INTEGRITY_POLICY(1), ADS_IP_REVIEW(2), RISK_PAYMENT(3), GRAY_ACCOUNT_SHUT_DOWN(4);
+
+		private final int value;
+
+		DisableReason(int value) {
+			this.value = value;
+		}
+
+		@JsonCreator
+		public static DisableReason fromValue(int value) {
+			return Arrays.stream(DisableReason.values())
+					.filter(reason -> reason.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
+		}
+
+		@JsonGetter
+		public int getValue() {
+			return value;
 		}
 	}
 
@@ -246,12 +291,10 @@ public class AdAccount extends FacebookObject {
 
 		@JsonCreator
 		public static TaxStatus fromValue(int value) {
-			for (TaxStatus status : TaxStatus.values()) {
-				if (status.getValue() == value) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(TaxStatus.values())
+					.filter(status -> status.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonGetter

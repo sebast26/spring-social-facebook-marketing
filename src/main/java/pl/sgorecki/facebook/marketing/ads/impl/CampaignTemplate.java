@@ -66,7 +66,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 			map.add("name", adCampaign.getName());
 		}
 		if (adCampaign.getStatus() != null) {
-			map.add("campaign_group_status", adCampaign.getStatus().name());
+			map.add("status", adCampaign.getStatus().name());
 		}
 		if (adCampaign.getObjective() != null) {
 			map.add("objective", adCampaign.getObjective().name());

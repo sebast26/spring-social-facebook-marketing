@@ -28,7 +28,7 @@ public class AccountTemplate extends AbstractFacebookAdsOperations implements Ac
 	}
 
 	public PagedList<AdCampaign> getAdAccountCampaigns(String accountId) {
-		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcampaign_groups", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "campaigns", AdCampaign.class, CampaignOperations.AD_CAMPAIGN_FIELDS);
 	}
 
 	public PagedList<AdUser> getAdAccountUsers(String accountId) {

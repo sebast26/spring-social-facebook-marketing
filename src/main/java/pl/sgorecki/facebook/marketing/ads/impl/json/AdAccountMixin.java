@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Annotated mixin to add Jackson annotations to AdAccount.
  *
- * @author Sebastian G�recki
+ * @author Sebastian Górecki
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AdAccountMixin {
@@ -83,6 +83,9 @@ public abstract class AdAccountMixin {
 	@JsonProperty("currency")
 	String currency;
 
+	@JsonProperty("disable_reason")
+	AdAccount.DisableReason disableReason;
+
 	@JsonProperty("end_advertiser")
 	long endAdvertiser;
 
@@ -94,6 +97,12 @@ public abstract class AdAccountMixin {
 
 	@JsonProperty("is_personal")
 	int isPersonal;
+
+	@JsonProperty("min_campaign_group_spend_cap")
+	String minCampaignGroupSpendCap;
+
+	@JsonProperty("min_daily_budget")
+	int minDailyBudget;
 
 	@JsonProperty("media_agency")
 	long mediaAgency;
@@ -126,8 +135,14 @@ public abstract class AdAccountMixin {
 	@JsonDeserialize(using = AdUserListDeserializer.class)
 	List<AdUser> users;
 
+	@JsonProperty("tax_id")
+	String taxId;
+
 	@JsonProperty("tax_id_status")
 	AdAccount.TaxStatus taxStatus;
+
+	@JsonProperty("tax_id_type")
+	String taxIdType;
 
 	private static class AdUserListDeserializer extends JsonDeserializer<List<AdUser>> {
 		@SuppressWarnings("unchecked")

@@ -26,8 +26,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
-	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
-	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.4/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id_status";
+	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdisable_reason%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cmin_campaign_group_spend_cap%2Cmin_daily_budget%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id%2Ctax_id_status%2Ctax_id_type";
+	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.4/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdisable_reason%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cmin_campaign_group_spend_cap%2Cmin_daily_budget%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id%2Ctax_id_status%2Ctax_id_type";
 	private static final String GET_ADACCOUNT_USERS_REQUEST_URI = "https://graph.facebook.com/v2.4/act_123456789/users";
 	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.4/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement";
 
@@ -65,6 +65,11 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(AdUserPermission.ADMANAGER_READ, adAccount.getUsers().get(0).getPermissions().get(1));
 		assertEquals(AdUserPermission.ADMANAGER_WRITE, adAccount.getUsers().get(0).getPermissions().get(2));
 		assertEquals(AdUserRole.ADMINISTRATOR, adAccount.getUsers().get(0).getRole());
+		assertEquals(AdAccount.DisableReason.NONE, adAccount.getDisableReason());
+		assertEquals("50000", adAccount.getMinCampaignGroupSpendCap());
+		assertEquals(200, adAccount.getMinDailyBudget());
+		assertEquals("PL1231231122", adAccount.getTaxId());
+		assertEquals("55", adAccount.getTaxIdType());
 	}
 
 	@Test
@@ -76,7 +81,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 		AdAccount adAccount = facebookAds.accountOperations().getAdAccount("123456789");
 		assertAdAccountFields(adAccount);
-		assertEquals(AdAccount.AccountStatus.TEMPORARILY_UNAVAILABLE, adAccount.getStatus());
+		assertEquals(AdAccount.AccountStatus.CLOSED, adAccount.getStatus());
 		assertEquals(1, adAccount.getUsers().size());
 		assertEquals("1234", adAccount.getUsers().get(0).getId());
 		assertEquals(AdUserPermission.ACCOUNT_ADMIN, adAccount.getUsers().get(0).getPermissions().get(0));
@@ -211,7 +216,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdAccountCampaigns() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcampaign_groups?fields=id%2Caccount_id%2Cbuying_type%2Ccampaign_group_status%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/campaigns?fields=id%2Caccount_id%2Cbuying_type%2Cstatus%2Cname%2Cobjective%2Cspend_cap%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-account-campaigns"), MediaType.APPLICATION_JSON));
@@ -439,6 +444,24 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		AdAccount adAccount = new AdAccount();
 		adAccount.setName("abc");
 		unauthorizedFacebookAds.accountOperations().updateAdAccount("123456789", adAccount);
+	}
+
+	@Test
+	public void version25_newFields() throws Exception {
+		mockServer.expect(requestTo(GET_ADACCOUNT_REQUEST_URI))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-account"), MediaType.APPLICATION_JSON));
+
+		AdAccount adAccount = facebookAds.accountOperations().getAdAccount("123456789");
+
+		assertEquals(AdAccount.DisableReason.NONE, adAccount.getDisableReason());
+		assertEquals("50000", adAccount.getMinCampaignGroupSpendCap());
+		assertEquals(200, adAccount.getMinDailyBudget());
+		assertEquals("PL1231231122", adAccount.getTaxId());
+		assertEquals("55", adAccount.getTaxIdType());
+
+		mockServer.verify();
 	}
 
 	private void assertAdAccountsFields(List<AdAccount> adAccounts) {
