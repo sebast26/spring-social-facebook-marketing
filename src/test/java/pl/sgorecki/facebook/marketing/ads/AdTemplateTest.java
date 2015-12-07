@@ -19,7 +19,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAccountAds() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adgroups?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/ads?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-same-account"), MediaType.APPLICATION_JSON));
@@ -54,7 +54,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getCampaignAds() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/701123456789/adgroups?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/701123456789/ads?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-same-campaign"), MediaType.APPLICATION_JSON));
@@ -80,7 +80,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSetAds() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/800123456789/adgroups?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/800123456789/ads?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-same-ad-set"), MediaType.APPLICATION_JSON));
@@ -104,14 +104,13 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAd() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad"), MediaType.APPLICATION_JSON));
 
 		Ad ad = facebookAds.adOperations().getAd("100123456789");
 		verifyAd(ad);
-		assertEquals(Ad.AdStatus.ACTIVE, ad.getStatus());
 		assertEquals(ConfiguredStatus.PAUSED, ad.getConfiguredStatus());
 		assertEquals(EffectiveStatus.PAUSED, ad.getEffectiveStatus());
 		assertEquals(BidType.ABSOLUTE_OCPM, ad.getBidType());
@@ -120,28 +119,27 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAd_withWrongStatus() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-wrong-status"), MediaType.APPLICATION_JSON));
 
 		Ad ad = facebookAds.adOperations().getAd("100123456789");
 		verifyAd(ad);
-		assertEquals(Ad.AdStatus.UNKNOWN, ad.getStatus());
-		assertEquals(BidType.ABSOLUTE_OCPM, ad.getBidType());
+		assertEquals(ConfiguredStatus.UNKNOWN, ad.getConfiguredStatus());
+		assertEquals(EffectiveStatus.UNKNOWN, ad.getEffectiveStatus());
 		mockServer.verify();
 	}
 
 	@Test
 	public void getAd_withWrongBidType() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-wrong-bid-type"), MediaType.APPLICATION_JSON));
 
 		Ad ad = facebookAds.adOperations().getAd("100123456789");
 		verifyAd(ad);
-		assertEquals(Ad.AdStatus.ACTIVE, ad.getStatus());
 		assertEquals(BidType.UNKNOWN, ad.getBidType());
 		mockServer.verify();
 	}
@@ -232,8 +230,8 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAd() throws Exception {
-		String requestBody = "name=Test+ad&adgroup_status=PAUSED&creative=%7B%22creative_id%22%3A+%22900123456789%22%7D&campaign_id=800123456789";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adgroups"))
+		String requestBody = "name=Test+ad&status=PAUSED&creative=%7B%22creative_id%22%3A+%22900123456789%22%7D&adset_id=800123456789";
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/ads"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -250,8 +248,8 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void createAd_withBidInfo() throws Exception {
-		String requestBody = "name=Test+ad&adgroup_status=PAUSED&creative=%7B%22creative_id%22%3A+%22900123456789%22%7D&campaign_id=800123456789";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adgroups"))
+		String requestBody = "name=Test+ad&status=PAUSED&creative=%7B%22creative_id%22%3A+%22900123456789%22%7D&adset_id=800123456789";
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/ads"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -273,7 +271,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void updateAd() throws Exception {
-		String requestBody = "name=Updated+Ad&adgroup_status=ARCHIVED";
+		String requestBody = "name=Updated+Ad&status=ARCHIVED";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
@@ -311,7 +309,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version24_addBidAmountField() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad"), MediaType.APPLICATION_JSON));
@@ -323,7 +321,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void version25_addStatusesFields() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cadgroup_status%2Cbid_amount%2Cbid_type%2Cbid_info%2Ccampaign_id%2Ccampaign_group_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/100123456789?fields=id%2Caccount_id%2Cbid_amount%2Cbid_type%2Cbid_info%2Cadset_id%2Ccampaign_id%2Ccreated_time%2Ccreative%2Cname%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad"), MediaType.APPLICATION_JSON));

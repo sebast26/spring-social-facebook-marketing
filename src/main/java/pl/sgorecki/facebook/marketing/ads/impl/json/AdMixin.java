@@ -26,7 +26,7 @@ public class AdMixin {
 	@JsonProperty("id")
 	String id;
 
-	@JsonProperty("adgroup_status")
+	@JsonProperty("status")
 	Ad.AdStatus status;
 
 	@JsonProperty("configured_status")
@@ -50,10 +50,10 @@ public class AdMixin {
 	@JsonProperty("account_id")
 	String accountId;
 
-	@JsonProperty("campaign_id")
+	@JsonProperty("adset_id")
 	String adSetId;
 
-	@JsonProperty("campaign_group_id")
+	@JsonProperty("campaign_id")
 	String campaignId;
 
 	@JsonProperty("creative")

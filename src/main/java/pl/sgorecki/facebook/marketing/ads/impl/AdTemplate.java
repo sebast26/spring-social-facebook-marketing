@@ -29,17 +29,17 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 
 	public PagedList<Ad> getAccountAds(String accountId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(getAdAccountId(accountId), "adgroups", Ad.class, AdOperations.AD_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "ads", Ad.class, AdOperations.AD_FIELDS);
 	}
 
 	public PagedList<Ad> getCampaignAds(String campaignId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(campaignId, "adgroups", Ad.class, AdOperations.AD_FIELDS);
+		return marketingApi.fetchConnections(campaignId, "ads", Ad.class, AdOperations.AD_FIELDS);
 	}
 
 	public PagedList<Ad> getAdSetAds(String adSetId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(adSetId, "adgroups", Ad.class, AdOperations.AD_FIELDS);
+		return marketingApi.fetchConnections(adSetId, "ads", Ad.class, AdOperations.AD_FIELDS);
 	}
 
 	public Ad getAd(String adId) {
@@ -56,8 +56,8 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 	public String createAd(String accountId, Ad ad) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(ad);
-		data.add("campaign_id", ad.getAdSetId());
-		return marketingApi.publish(getAdAccountId(accountId), "adgroups", data);
+		data.add("adset_id", ad.getAdSetId());
+		return marketingApi.publish(getAdAccountId(accountId), "ads", data);
 	}
 
 	public boolean updateAd(String adId, Ad ad) {
@@ -77,7 +77,7 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 			data.add("name", ad.getName());
 		}
 		if (ad.getStatus() != null) {
-			data.add("adgroup_status", ad.getStatus().name());
+			data.add("status", ad.getStatus().name());
 		}
 		if (ad.getCreativeId() != null) {
 			data.add("creative", "{\"creative_id\": \"" + ad.getCreativeId() + "\"}");
