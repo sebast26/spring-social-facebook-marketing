@@ -25,5 +25,5 @@ public interface MarketingApi {
 
 	void delete(String objectId);
 
-	static final String GRAPH_API_URL = "https://graph.facebook.com/v2.4/";
+	static final String GRAPH_API_URL = "https://graph.facebook.com/v2.5/";
 }

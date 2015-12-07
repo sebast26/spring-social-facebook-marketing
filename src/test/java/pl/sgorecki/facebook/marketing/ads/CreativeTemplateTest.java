@@ -18,7 +18,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAccountCreatives() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcreatives?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/act_123456789/adcreatives?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-creatives"), MediaType.APPLICATION_JSON));
@@ -35,7 +35,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSetCreatives() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/700123456789/adcreatives?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789/adcreatives?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-creatives"), MediaType.APPLICATION_JSON));
@@ -52,7 +52,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCreative() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/800123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/800123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-creative"), MediaType.APPLICATION_JSON));
@@ -69,7 +69,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCreative_withWrongType() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/801123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/801123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-creative-wrong-type"), MediaType.APPLICATION_JSON));
@@ -83,7 +83,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCreative_withWrongStatus() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/802123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/802123456789?fields=actor_id%2Cbody%2Cimage_hash%2Cimage_url%2Clink_url%2Cname%2Cobject_id%2Cobject_story_id%2Cobject_url%2Crun_status%2Ctitle%2Curl_tags%2Cthumbnail_url%2Cobject_type%2Cid"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-creative-wrong-status"), MediaType.APPLICATION_JSON));
@@ -103,7 +103,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createAdCreative_linkAd() throws Exception {
 		String requestBody = "title=Ad+creative+title&body=Over+the+past+few+years+REST+has+become+an+important&image_url=http%3A%2F%2Fexample.com%2Fstatics_s2_20150603-0041%2Fstyles%2Fi%2Flogo_bigger.jpg&object_url=http%3A%2F%2Fwww.example.com%2Fsome_object";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcreatives"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/act_123456789/adcreatives"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -121,7 +121,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void createAdCreative_postLikeAd() throws Exception {
 		String requestBody = "name=Post+Like+Ad+Creative&body=Some+body+here&object_id=600123456789";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/act_123456789/adcreatives"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/act_123456789/adcreatives"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -143,7 +143,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test
 	public void renameAdCreative() throws Exception {
 		String requestBody = "name=New+creative+name";
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/800123456789"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/800123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andExpect(content().string(requestBody))
@@ -160,7 +160,7 @@ public class CreativeTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void deleteAdCreative() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/800123456789"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/800123456789"))
 				.andExpect(method(DELETE))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess("{\"success\": true}", MediaType.APPLICATION_JSON));
