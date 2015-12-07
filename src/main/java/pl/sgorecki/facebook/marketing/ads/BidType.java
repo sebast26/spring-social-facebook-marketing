@@ -2,6 +2,8 @@ package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.util.Arrays;
+
 /**
  * Enum used in Ad and AdSet objects.
  *
@@ -12,11 +14,9 @@ public enum BidType {
 
 	@JsonCreator
 	public static BidType fromValue(String value) {
-		for (BidType type : BidType.values()) {
-			if (type.name().equals(value)) {
-				return type;
-			}
-		}
-		return UNKNOWN;
+		return Arrays.stream(BidType.values())
+				.filter(type -> type.name().equals(value))
+				.findFirst()
+				.orElse(UNKNOWN);
 	}
 }

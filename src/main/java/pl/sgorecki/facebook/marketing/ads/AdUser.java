@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import org.springframework.social.facebook.api.FacebookObject;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,12 +45,10 @@ public class AdUser extends FacebookObject {
 
 		@JsonCreator
 		public static AdUserPermission forValue(int value) {
-			for (AdUserPermission permission : AdUserPermission.values()) {
-				if (permission.getValue() == value) {
-					return permission;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdUserPermission.values())
+					.filter(permission -> permission.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonGetter
@@ -69,12 +68,10 @@ public class AdUser extends FacebookObject {
 
 		@JsonCreator
 		public static AdUserRole forValue(int value) {
-			for (AdUserRole role : AdUserRole.values()) {
-				if (role.getValue() == value) {
-					return role;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdUserRole.values())
+					.filter(role -> role.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonGetter

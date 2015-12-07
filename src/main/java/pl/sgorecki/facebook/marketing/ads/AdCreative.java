@@ -2,6 +2,8 @@ package pl.sgorecki.facebook.marketing.ads;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.util.Arrays;
+
 /**
  * @author Sebastian Górecki
  */
@@ -135,12 +137,10 @@ public class AdCreative {
 
 		@JsonCreator
 		public static AdCreativeType fromValue(String value) {
-			for (AdCreativeType type : AdCreativeType.values()) {
-				if (type.name().equals(value)) {
-					return type;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdCreativeType.values())
+					.filter(type -> type.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 
@@ -150,12 +150,10 @@ public class AdCreative {
 
 		@JsonCreator
 		public static AdCreativeStatus fromValue(String value) {
-			for (AdCreativeStatus status : AdCreativeStatus.values()) {
-				if (status.name().equals(value)) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdCreativeStatus.values())
+					.filter(status -> status.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 }

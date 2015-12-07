@@ -3,6 +3,7 @@ package pl.sgorecki.facebook.marketing.ads;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -206,10 +207,10 @@ public class Targeting {
 
 		@JsonCreator
 		public static Gender fromValue(int value) {
-			for (Gender gender : Gender.values()) {
-				if (gender.getValue() == value) return gender;
-			}
-			return UNKNOWN;
+			return Arrays.stream(Gender.values())
+					.filter(gender -> gender.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue
@@ -231,10 +232,10 @@ public class Targeting {
 
 		@JsonCreator
 		public static RelationshipStatus fromValue(int value) {
-			for (RelationshipStatus status : RelationshipStatus.values()) {
-				if (status.getValue() == value) return status;
-			}
-			return UNKNOWN;
+			return Arrays.stream(RelationshipStatus.values())
+					.filter(status -> status.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue
@@ -254,10 +255,10 @@ public class Targeting {
 
 		@JsonCreator
 		public static InterestedIn fromValue(int value) {
-			for (InterestedIn interestedIn : InterestedIn.values()) {
-				if (interestedIn.getValue() == value) return interestedIn;
-			}
-			return UNKNOWN;
+			return Arrays.stream(InterestedIn.values())
+					.filter(interestedIn -> interestedIn.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue
@@ -278,10 +279,10 @@ public class Targeting {
 
 		@JsonCreator
 		public static PageType fromValue(String value) {
-			for (PageType type : PageType.values()) {
-				if (type.getValue().equals(value)) return type;
-			}
-			return UNKNOWN;
+			return Arrays.stream(PageType.values())
+					.filter(type -> type.getValue().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue
@@ -303,10 +304,10 @@ public class Targeting {
 
 		@JsonCreator
 		public static EducationStatus fromValue(int value) {
-			for (EducationStatus status : EducationStatus.values()) {
-				if (status.getValue() == value) return status;
-			}
-			return UNKNOWN;
+			return Arrays.stream(EducationStatus.values())
+					.filter(status -> status.getValue() == value)
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue

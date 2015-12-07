@@ -3,6 +3,7 @@ package pl.sgorecki.facebook.marketing.ads;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,10 +67,10 @@ public class TargetingLocation {
 
 		@JsonCreator
 		public static LocationType fromValue(String value) {
-			for (LocationType type : LocationType.values()) {
-				if (type.getValue().equals(value)) return type;
-			}
-			return UNKNOWN;
+			return Arrays.stream(LocationType.values())
+					.filter(type -> type.getValue().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 
 		@JsonValue
