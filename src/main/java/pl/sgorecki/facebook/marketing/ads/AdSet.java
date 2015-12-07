@@ -3,6 +3,7 @@ package pl.sgorecki.facebook.marketing.ads;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.social.facebook.api.FacebookObject;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class AdSet extends FacebookObject {
 	public BidInfo getBidInfo() {
 		return bidInfo;
 	}
-	
+
 	public OptimizationGoal getOptimizationGoal() {
 		return optimizationGoal;
 	}
@@ -193,12 +194,10 @@ public class AdSet extends FacebookObject {
 
 		@JsonCreator
 		public static AdSetStatus fromValue(String value) {
-			for (AdSetStatus status : AdSetStatus.values()) {
-				if (status.name().equals(value)) {
-					return status;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(AdSetStatus.values())
+					.filter(status -> status.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 
@@ -207,12 +206,10 @@ public class AdSet extends FacebookObject {
 
 		@JsonCreator
 		public static BillingEvent fromValue(String value) {
-			for (BillingEvent event : BillingEvent.values()) {
-				if (event.name().equals(value)) {
-					return event;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(BillingEvent.values())
+					.filter(event -> event.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 
@@ -223,12 +220,10 @@ public class AdSet extends FacebookObject {
 
 		@JsonCreator
 		public static OptimizationGoal fromValue(String value) {
-			for (OptimizationGoal goal : OptimizationGoal.values()) {
-				if (goal.name().equals(value)) {
-					return goal;
-				}
-			}
-			return UNKNOWN;
+			return Arrays.stream(OptimizationGoal.values())
+					.filter(goal -> goal.name().equals(value))
+					.findFirst()
+					.orElse(UNKNOWN);
 		}
 	}
 }

@@ -25,12 +25,12 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 
 	public PagedList<AdSet> getAccountAdSets(String accountId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(getAdAccountId(accountId), "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchConnections(getAdAccountId(accountId), "adsets", AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public PagedList<AdSet> getCampaignAdSets(String campaignId) {
 		requireAuthorization();
-		return marketingApi.fetchConnections(campaignId, "adcampaigns", AdSet.class, AdSetOperations.AD_SET_FIELDS);
+		return marketingApi.fetchConnections(campaignId, "adsets", AdSet.class, AdSetOperations.AD_SET_FIELDS);
 	}
 
 	public AdSet getAdSet(String id) {
@@ -60,7 +60,7 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 	public void deleteAdSet(String adSetId) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		data.add("campaign_status", "DELETED");
+		data.add("status", "DELETED");
 		marketingApi.post(adSetId, data);
 	}
 
@@ -71,7 +71,7 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 			data.set("name", adSet.getName());
 		}
 		if (adSet.getStatus() != null) {
-			data.set("campaign_status", adSet.getStatus().name());
+			data.set("status", adSet.getStatus().name());
 		}
 		data.set("is_autobid", String.valueOf(adSet.isAutobid()));
 		if (adSet.getBidInfo() != null) {

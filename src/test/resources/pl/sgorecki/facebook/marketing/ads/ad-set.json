@@ -1,9 +1,8 @@
 {
   "id": "700123456789",
   "account_id": "123456789",
-  "campaign_group_id": "600123456789",
+  "campaign_id": "600123456789",
   "name": "Test AdSet",
-  "campaign_status": "ACTIVE",
   "configured_status": "PAUSED",
   "effective_status": "CAMPAIGN_PAUSED",
   "is_autobid": true,

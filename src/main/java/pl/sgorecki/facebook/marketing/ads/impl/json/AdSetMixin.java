@@ -20,13 +20,13 @@ abstract public class AdSetMixin {
 	@JsonProperty("account_id")
 	String accountId;
 
-	@JsonProperty("campaign_group_id")
+	@JsonProperty("campaign_id")
 	String campaignId;
 
 	@JsonProperty("name")
 	String name;
 
-	@JsonProperty("campaign_status")
+	@JsonProperty("status")
 	AdSet.AdSetStatus status;
 
 	@JsonProperty("configured_status")

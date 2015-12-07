@@ -122,7 +122,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignSets() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adsets?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_group_id%2Ccampaign_status%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.4/600123456789/adsets?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-sets"), MediaType.APPLICATION_JSON));
@@ -133,7 +133,8 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(AdSet.BillingEvent.CLICKS, adSets.get(0).getBillingEvent());
 		assertEquals("37407", adSets.get(0).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(0).getCampaignId());
-		assertEquals(AdSet.AdSetStatus.PAUSED, adSets.get(0).getStatus());
+		assertEquals(ConfiguredStatus.PAUSED, adSets.get(0).getConfiguredStatus());
+		assertEquals(EffectiveStatus.PAUSED, adSets.get(0).getEffectiveStatus());
 		assertEquals(toDate("2015-05-27T11:58:34+0200"), adSets.get(0).getCreatedTime());
 		assertEquals("40000", adSets.get(0).getDailyBudget());
 		assertEquals(toDate("2015-05-29T22:26:40+0200"), adSets.get(0).getEndTime());
@@ -152,7 +153,8 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(AdSet.BillingEvent.CLICKS, adSets.get(1).getBillingEvent());
 		assertEquals("0", adSets.get(1).getBudgetRemaining());
 		assertEquals("600123456789", adSets.get(1).getCampaignId());
-		assertEquals(AdSet.AdSetStatus.ACTIVE, adSets.get(1).getStatus());
+		assertEquals(ConfiguredStatus.ACTIVE, adSets.get(1).getConfiguredStatus());
+		assertEquals(EffectiveStatus.ACTIVE, adSets.get(1).getEffectiveStatus());
 		assertEquals(toDate("2015-04-10T09:28:54+0200"), adSets.get(1).getCreatedTime());
 		assertEquals("0", adSets.get(1).getDailyBudget());
 		assertEquals(toDate("2015-04-13T09:19:00+0200"), adSets.get(1).getEndTime());
