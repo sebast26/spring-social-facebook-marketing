@@ -47,8 +47,8 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 	public String createAdSet(String accountId, AdSet adSet) {
 		requireAuthorization();
 		MultiValueMap<String, Object> data = mapCommonFields(adSet);
-		data.set("campaign_group_id", adSet.getCampaignId());
-		return marketingApi.publish(getAdAccountId(accountId), "adcampaigns", data);
+		data.set("campaign_id", adSet.getCampaignId());
+		return marketingApi.publish(getAdAccountId(accountId), "adsets", data);
 	}
 
 	public boolean updateAdSet(String adSetId, AdSet adSet) {
