@@ -41,7 +41,7 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 	public AdInsight getAdSetInsight(String adSetId) {
 		requireAuthorization();
 		PagedList<AdInsight> insights = marketingApi.fetchConnections(adSetId, "insights", AdInsight.class, AdSetOperations.AD_SET_INSIGHT_FIELDS);
-		return insights.get(0);
+		return insights.isEmpty() ? new AdInsight() : insights.get(0);
 	}
 
 	public String createAdSet(String accountId, AdSet adSet) {

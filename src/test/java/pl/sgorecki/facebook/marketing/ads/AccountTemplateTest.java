@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
@@ -320,6 +321,21 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	@Test(expected = NotAuthorizedException.class)
 	public void deleteUserFromAccount_unauthorized() throws Exception {
 		unauthorizedFacebookAds.accountOperations().deleteUserFromAdAccount("123456789", "123456");
+	}
+
+	@Test
+	public void getAccountInsight_emptyResults() throws Exception {
+		mockServer.expect(requestTo(GET_ADACCOUNT_INSIGHT))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("empty-insights"), MediaType.APPLICATION_JSON));
+
+		try {
+			facebookAds.accountOperations().getAdAccountInsight("123456789");
+		} catch (IndexOutOfBoundsException e) {
+			fail("Should not throw an exception!");
+		}
+		mockServer.verify();
 	}
 
 	@Test
