@@ -35,7 +35,7 @@ public class CampaignTemplate extends AbstractFacebookAdsOperations implements C
 	public AdInsight getAdCampaignInsight(String campaignId) {
 		requireAuthorization();
 		PagedList<AdInsight> insights = marketingApi.fetchConnections(campaignId, "insights", AdInsight.class, CampaignOperations.AD_CAMPAIGN_INSIGHT_FIELDS);
-		return insights.get(0);
+		return insights.isEmpty() ? new AdInsight() : insights.get(0);
 	}
 
 	public String createAdCampaign(String accountId, AdCampaign adCampaign) {

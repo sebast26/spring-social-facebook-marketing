@@ -52,7 +52,7 @@ public class AccountTemplate extends AbstractFacebookAdsOperations implements Ac
 	public AdInsight getAdAccountInsight(String accountId) {
 		requireAuthorization();
 		PagedList<AdInsight> insights = marketingApi.fetchConnections(getAdAccountId(accountId), "insights", AdInsight.class, AD_ACCOUNT_INSIGHT_FIELDS);
-		return insights.get(0);
+		return insights.isEmpty() ? new AdInsight() : insights.get(0);
 	}
 
 	public boolean updateAdAccount(String accountId, AdAccount adAccount) {

@@ -50,7 +50,7 @@ public class AdTemplate extends AbstractFacebookAdsOperations implements AdOpera
 	public AdInsight getAdInsight(String adId) {
 		requireAuthorization();
 		PagedList<AdInsight> insights = marketingApi.fetchConnections(adId, "insights", AdInsight.class, AdOperations.AD_INSIGHT_FIELDS);
-		return insights.get(0);
+		return insights.isEmpty() ? new AdInsight() : insights.get(0);
 	}
 
 	public String createAd(String accountId, Ad ad) {
