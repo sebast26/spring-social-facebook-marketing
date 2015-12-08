@@ -151,7 +151,7 @@ public class AdTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdInsight() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/100123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cactions_per_impression%2Cunique_clicks%2Ccost_per_result%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Cobjective%2Creach%2Cresult_rate%2Cresults%2Croas%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctoday_spend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cvideo_start_actions%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/100123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-insights"), MediaType.APPLICATION_JSON));
