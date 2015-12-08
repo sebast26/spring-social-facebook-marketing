@@ -24,7 +24,7 @@ public interface AccountOperations {
 	static final String[] AD_ACCOUNT_INSIGHT_FIELDS = {
 			"account_id", "account_name", "date_start", "date_stop", "unique_clicks",
 			"cost_per_total_action", "cost_per_unique_click", "cpm", "cpp", "ctr", "unique_ctr",
-			"frequency", "impressions", "unique_impressions", "reach", "results",
+			"frequency", "impressions", "unique_impressions", "reach",
 			"social_clicks", "unique_social_clicks", "social_impressions", "unique_social_impressions", "social_reach",
 			"spend", "total_action_value", "total_actions", "total_unique_actions", "actions",
 			"unique_actions", "cost_per_action_type", "inline_link_clicks", "cost_per_inline_link_click",
