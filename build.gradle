@@ -8,9 +8,17 @@ repositories {
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
+version = '0.1.1-SNAPSHOT'
+
 dependencies {
     compile group: 'org.springframework.social', name: 'spring-social-facebook', version: "$springSocialFacebookVersion"
 
     testCompile group: 'junit', name: 'junit-dep', version: "$junitVersion"
     testCompile group: 'org.springframework', name: 'spring-test', version: "$springTestVersion"
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

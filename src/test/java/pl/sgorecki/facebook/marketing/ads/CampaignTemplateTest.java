@@ -405,9 +405,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		AdInsight insight = facebookAds.campaignOperations().getAdCampaignInsight("600123456789");
 		assertEquals("123456789", insight.getAccountId());
 		assertEquals("Test account name", insight.getAccountName());
-		assertEquals(0.016042780748663, insight.getActionsPerImpression(), EPSILON);
 		assertEquals(5, insight.getUniqueClicks());
-		assertEquals(0.66666666666667, insight.getCostPerResult(), EPSILON);
 		assertEquals(0.66666666666667, insight.getCostPerTotalAction(), EPSILON);
 		assertEquals(0.4, insight.getCostPerUniqueClick(), EPSILON);
 		assertEquals(10.695187165775, insight.getCpm(), EPSILON);
@@ -418,16 +416,12 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(187, insight.getImpressions());
 		assertEquals(184, insight.getUniqueImpressions());
 		assertEquals(184, insight.getReach());
-		assertEquals(1.6042780748663, insight.getResultRate(), EPSILON);
-		assertEquals(3, insight.getResults());
-		assertEquals(0, insight.getRoas());
 		assertEquals(0, insight.getSocialClicks());
 		assertEquals(0, insight.getUniqueSocialClicks());
 		assertEquals(0, insight.getSocialImpressions());
 		assertEquals(0, insight.getUniqueSocialImpressions());
 		assertEquals(0, insight.getSocialReach());
 		assertEquals(2, insight.getSpend());
-		assertEquals(0, insight.getTodaySpend());
 		assertEquals(0, insight.getTotalActionValue());
 		assertEquals(3, insight.getTotalActions());
 		assertEquals(2, insight.getTotalUniqueActions());
@@ -458,9 +452,6 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(0.66666666666667, insight.getCostPerActionType().get(2).getValue(), EPSILON);
 		assertEquals("post_engagement", insight.getCostPerActionType().get(3).getActionType());
 		assertEquals(0.66666666666667, insight.getCostPerActionType().get(3).getValue(), EPSILON);
-		assertEquals(1, insight.getVideoStartActions().size());
-		assertEquals("video_view", insight.getVideoStartActions().get(0).getActionType());
-		assertEquals(0, insight.getVideoStartActions().get(0).getValue(), EPSILON);
 		assertEquals(1.3333333334, insight.getCostPerInlineLinkClick(), EPSILON);
 		assertEquals(0.9999999999, insight.getCostPerInlinePostEngagement(), EPSILON);
 		assertEquals(50, insight.getInlineLinkClicks());

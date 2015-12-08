@@ -57,14 +57,8 @@ public abstract class AdInsightMixin {
 	Date campaignGroupEnd;
 
 	// general fields
-	@JsonProperty("actions_per_impression")
-	double actionsPerImpression;
-
 	@JsonProperty("unique_clicks")
 	int uniqueClicks;
-
-	@JsonProperty("cost_per_result")
-	double costPerResult;
 
 	@JsonProperty("cost_per_total_action")
 	double costPerTotalAction;
@@ -93,20 +87,8 @@ public abstract class AdInsightMixin {
 	@JsonProperty("unique_impressions")
 	int uniqueImpressions;
 
-	@JsonProperty("objective")
-	String objective;
-
 	@JsonProperty("reach")
 	int reach;
-
-	@JsonProperty("result_rate")
-	double resultRate;
-
-	@JsonProperty("results")
-	int results;
-
-	@JsonProperty("roas")
-	int roas;
 
 	@JsonProperty("social_clicks")
 	int socialClicks;
@@ -125,9 +107,6 @@ public abstract class AdInsightMixin {
 
 	@JsonProperty("spend")
 	int spend;
-
-	@JsonProperty("today_spend")
-	int todaySpend;
 
 	@JsonProperty("total_action_value")
 	int totalActionValue;
@@ -160,7 +139,4 @@ public abstract class AdInsightMixin {
 
 	@JsonProperty("cost_per_action_type")
 	List<AdInsightAction> costPerActionType;
-
-	@JsonProperty("video_start_actions")
-	List<AdInsightAction> videoStartActions;
 }

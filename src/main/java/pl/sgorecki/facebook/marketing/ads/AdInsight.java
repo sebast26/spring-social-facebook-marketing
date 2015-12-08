@@ -30,9 +30,7 @@ public class AdInsight {
 	private Date campaignGroupEnd;
 
 	// general fields
-	private double actionsPerImpression;
 	private int uniqueClicks;
-	private double costPerResult;
 	private double costPerTotalAction;
 	private double costPerUniqueClick;
 	private double cpm;
@@ -42,18 +40,13 @@ public class AdInsight {
 	private double frequency;
 	private int impressions;
 	private int uniqueImpressions;
-	private String objective;
 	private int reach;
-	private double resultRate;
-	private int results;
-	private int roas;
 	private int socialClicks;
 	private int uniqueSocialClicks;
 	private int socialImpressions;
 	private int uniqueSocialImpressions;
 	private int socialReach;
 	private int spend;
-	private int todaySpend;
 	private int totalActionValue;
 	private int totalActions;
 	private int totalUniqueActions;
@@ -66,7 +59,6 @@ public class AdInsight {
 	private List<AdInsightAction> actions;
 	private List<AdInsightAction> uniqueActions;
 	private List<AdInsightAction> costPerActionType;
-	private List<AdInsightAction> videoStartActions;
 
 	public String getAccountId() {
 		return accountId;
@@ -120,16 +112,8 @@ public class AdInsight {
 		return campaignGroupEnd;
 	}
 
-	public double getActionsPerImpression() {
-		return actionsPerImpression;
-	}
-
 	public int getUniqueClicks() {
 		return uniqueClicks;
-	}
-
-	public double getCostPerResult() {
-		return costPerResult;
 	}
 
 	public double getCostPerTotalAction() {
@@ -168,24 +152,8 @@ public class AdInsight {
 		return uniqueImpressions;
 	}
 
-	public String getObjective() {
-		return objective;
-	}
-
 	public int getReach() {
 		return reach;
-	}
-
-	public double getResultRate() {
-		return resultRate;
-	}
-
-	public int getResults() {
-		return results;
-	}
-
-	public int getRoas() {
-		return roas;
 	}
 
 	public int getSocialClicks() {
@@ -210,10 +178,6 @@ public class AdInsight {
 
 	public int getSpend() {
 		return spend;
-	}
-
-	public int getTodaySpend() {
-		return todaySpend;
 	}
 
 	public int getTotalActionValue() {
@@ -254,9 +218,5 @@ public class AdInsight {
 
 	public List<AdInsightAction> getCostPerActionType() {
 		return costPerActionType;
-	}
-
-	public List<AdInsightAction> getVideoStartActions() {
-		return videoStartActions;
 	}
 }
