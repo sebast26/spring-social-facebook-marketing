@@ -280,6 +280,26 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 	}
 
 	@Test
+	public void createAdSet_withBidAmountNotSet() throws Exception {
+		String requestBody = "date_format=U&name=Test+AdSet&status=PAUSED&is_autobid=true&rtb_flag=false&daily_budget=null&lifetime_budget=null&campaign_id=600123456789";
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/act_123456789/adsets"))
+				.andExpect(method(POST))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andExpect(content().string(requestBody))
+				.andRespond(withSuccess("{\"id\": \"701123456789\"}", MediaType.APPLICATION_JSON));
+
+		AdSet adSet = new AdSet();
+		adSet.setName("Test AdSet");
+		adSet.setStatus(AdSetStatus.PAUSED);
+		adSet.setAutobid(true);
+		adSet.setCampaignId("600123456789");
+		String adSetId = facebookAds.adSetOperations().createAdSet("123456789", adSet);
+
+		mockServer.verify();
+		assertEquals("701123456789", adSetId);
+	}
+
+	@Test
 	public void createAdSet_withAllFields() throws Exception {
 		String requestBody = "date_format=U&name=Test+AdSet+2&status=ACTIVE&is_autobid=false&" +
 				"billing_event=APP_INSTALLS&optimization_goal=CLICKS&bid_amount=2222&rtb_flag=true&" +
@@ -373,7 +393,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void updateAdSet() throws Exception {
-		String requestBody = "date_format=U&name=New+AdSet+name&status=ARCHIVED&is_autobid=true&bid_amount=0&rtb_flag=false&daily_budget=null&lifetime_budget=50000&start_time=1432833720";
+		String requestBody = "date_format=U&name=New+AdSet+name&status=ARCHIVED&is_autobid=true&rtb_flag=false&daily_budget=null&lifetime_budget=50000&start_time=1432833720";
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789"))
 				.andExpect(method(POST))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
