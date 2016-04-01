@@ -1,0 +1,23 @@
+{
+  "targeting": {
+    "geo_locations": {
+      "cities": [
+        {
+          "country": "PL",
+          "distance_unit": "mile",
+          "key": "1869871",
+          "name": "Poznan",
+          "region": "Greater Poland Voivodeship",
+          "region_id": "3007"
+        }
+      ]
+    },
+    "friends_of_connections": [
+      {
+        "id": "554433221100",
+        "name": "Some FanPage"
+      }
+    ]
+  },
+  "id": "112233445566778899"
+}

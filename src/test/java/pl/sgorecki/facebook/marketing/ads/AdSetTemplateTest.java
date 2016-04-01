@@ -135,6 +135,39 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 	}
 
 	@Test
+	public void getAdSet_ExcludedConnectionsAsMap() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/112233445566778899?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set-excluded-connections"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("112233445566778899");
+		assertEquals("1234567890", adSet.getTargeting().getExcludedConnections().get(0));
+		mockServer.verify();
+	}
+
+	@Test
+	public void getAdSet_ConnectionsAsMap() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/112233445566778899?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set-connections"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("112233445566778899");
+		assertEquals("0987654321", adSet.getTargeting().getConnections().get(0));
+		mockServer.verify();
+	}
+
+	@Test
+	public void getAdSet_FriendsOfConnectionsAsMap() throws Exception {
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/112233445566778899?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set-friends-of-connections"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("112233445566778899");
+		assertEquals("554433221100", adSet.getTargeting().getFriendsOfConnections().get(0));
+		mockServer.verify();
+	}
+
+	@Test
 	public void getAdSet_wrongStatus() throws Exception {
 		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/709123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
 				.andExpect(method(GET))

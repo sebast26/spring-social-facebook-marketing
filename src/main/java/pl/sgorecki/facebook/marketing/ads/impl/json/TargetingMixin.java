@@ -2,11 +2,21 @@ package pl.sgorecki.facebook.marketing.ads.impl.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import pl.sgorecki.facebook.marketing.ads.Targeting;
 import pl.sgorecki.facebook.marketing.ads.TargetingEntry;
 import pl.sgorecki.facebook.marketing.ads.TargetingLocation;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,12 +56,15 @@ public abstract class TargetingMixin {
 
 	// connections
 	@JsonProperty("connections")
+	@JsonDeserialize(using = ListOfMapsDeserializer.class)
 	List<String> connections;
 
 	@JsonProperty("excluded_connections")
+	@JsonDeserialize(using = ListOfMapsDeserializer.class)
 	List<String> excludedConnections;
 
 	@JsonProperty("friends_of_connections")
+	@JsonDeserialize(using = ListOfMapsDeserializer.class)
 	List<String> friendsOfConnections;
 
 	// interests
@@ -80,4 +93,24 @@ public abstract class TargetingMixin {
 
 	@JsonProperty("work_positions")
 	List<TargetingEntry> workPositions;
+
+	private static class ListOfMapsDeserializer extends JsonDeserializer<List<String>> {
+
+		@Override
+		public List<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+			if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
+				List<String> retList = new ArrayList<String>();
+				try {
+					while (jp.nextToken() != JsonToken.END_ARRAY) {
+						HashMap<String, String> regionMap = jp.readValueAs(HashMap.class);
+						retList.add(regionMap.get("id"));
+					}
+					return retList;
+				} catch (IOException e) {
+					return Collections.emptyList();
+				}
+			}
+			return Collections.emptyList();
+		}
+	}
 }
