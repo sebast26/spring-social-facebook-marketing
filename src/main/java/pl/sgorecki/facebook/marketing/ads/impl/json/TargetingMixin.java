@@ -101,9 +101,16 @@ public abstract class TargetingMixin {
 			if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 				List<String> retList = new ArrayList<String>();
 				try {
-					while (jp.nextToken() != JsonToken.END_ARRAY) {
-						HashMap<String, String> regionMap = jp.readValueAs(HashMap.class);
-						retList.add(regionMap.get("id"));
+					JsonToken nextToken = jp.nextToken();
+					while (nextToken != JsonToken.END_ARRAY) {
+						if (nextToken == JsonToken.START_OBJECT) {
+							HashMap<String, String> regionMap = jp.readValueAs(HashMap.class);
+							retList.add(String.valueOf(regionMap.get("id")));
+						} else {
+							String value = jp.readValueAs(String.class);
+							retList.add(value);
+						}
+						nextToken = jp.nextToken();
 					}
 					return retList;
 				} catch (IOException e) {
