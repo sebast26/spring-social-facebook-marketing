@@ -35,6 +35,8 @@ public class AdSet extends FacebookObject {
 	private List<String> creativeSequence;
 	private PromotedObject promotedObject;
 	private Targeting targeting;
+	/* A String representation of the targeting object. When targeting string is set it have priority over targeting object. */
+	private String targetingString;
 
 	private Date startTime;
 	private Date endTime;
@@ -163,6 +165,14 @@ public class AdSet extends FacebookObject {
 
 	public void setTargeting(Targeting targeting) {
 		this.targeting = targeting;
+	}
+
+	public String getTargetingString() {
+		return targetingString;
+	}
+
+	public void setTargetingString(String targetingString) {
+		this.targetingString = targetingString;
 	}
 
 	public Date getStartTime() {

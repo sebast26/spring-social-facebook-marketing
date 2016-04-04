@@ -1,5 +1,6 @@
 package pl.sgorecki.facebook.marketing.ads;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.social.NotAuthorizedException;
@@ -250,6 +251,113 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		mockServer.verify();
 	}
 
+	@Test
+	@Ignore(value = "Do not know how to handle it!")
+	public void getAdSet_withTargetingString() throws Exception {
+		// given
+		String targetingString = "{\n" +
+				"    \"age_max\": 20,\n" +
+				"    \"age_min\": 18,\n" +
+				"    \"behaviors\": [\n" +
+				"      {\n" +
+				"        \"id\": \"6004854404172\",\n" +
+				"        \"name\": \"Technology late adopters\"\n" +
+				"      }\n" +
+				"    ],\n" +
+				"    \"genders\": [\n" +
+				"      1\n" +
+				"    ],\n" +
+				"    \"relationship_statuses\": [\n" +
+				"      2,\n" +
+				"      9\n" +
+				"    ],\n" +
+				"    \"interested_in\": [\n" +
+				"      2\n" +
+				"    ],\n" +
+				"    \"geo_locations\": {\n" +
+				"      \"countries\": [\n" +
+				"        \"PL\"\n" +
+				"      ],\n" +
+				"      \"regions\": [\n" +
+				"        {\n" +
+				"          \"key\": \"3847\"\n" +
+				"        },\n" +
+				"        {\n" +
+				"          \"key\": \"1122\"\n" +
+				"        }\n" +
+				"      ],\n" +
+				"      \"cities\": [\n" +
+				"        {\n" +
+				"          \"key\": \"2430536\",\n" +
+				"          \"radius\": 12,\n" +
+				"          \"distance_unit\": \"mile\"\n" +
+				"        },\n" +
+				"        {\n" +
+				"          \"key\": \"11223344\",\n" +
+				"          \"radius\": 55,\n" +
+				"          \"distance_unit\": \"kilometer\"\n" +
+				"        }\n" +
+				"      ],\n" +
+				"      \"zips\": [\n" +
+				"        {\n" +
+				"          \"key\": \"US:94304\"\n" +
+				"        },\n" +
+				"        {\n" +
+				"          \"key\": \"US:00501\"\n" +
+				"        }\n" +
+				"      ],\n" +
+				"      \"location_types\": [\n" +
+				"        \"home\",\n" +
+				"        \"recent\"\n" +
+				"      ]\n" +
+				"    },\n" +
+				"    \"interests\": [\n" +
+				"      {\n" +
+				"        \"id\": \"6003629266583\",\n" +
+				"        \"name\": \"Hard drives\"\n" +
+				"      }\n" +
+				"    ],\n" +
+				"    \"page_types\": [\n" +
+				"      \"desktopfeed\",\n" +
+				"      \"mobilefeed\"\n" +
+				"    ],\n" +
+				"    \"education_schools\": [\n" +
+				"      {\n" +
+				"        \"id\": 105930651606,\n" +
+				"        \"name\": \"Harvard University\"\n" +
+				"      }\n" +
+				"    ],\n" +
+				"    \"education_statuses\": [\n" +
+				"      1,\n" +
+				"      9,\n" +
+				"      13\n" +
+				"    ],\n" +
+				"    \"work_employers\": [\n" +
+				"      {\n" +
+				"        \"id\": \"50431654\",\n" +
+				"        \"name\": \"Microsoft\"\n" +
+				"      }\n" +
+				"    ],\n" +
+				"    \"work_positions\": [\n" +
+				"      {\n" +
+				"        \"id\": 105763692790962,\n" +
+				"        \"name\": \"Business Analyst\"\n" +
+				"      }\n" +
+				"    ]";
+
+		// when
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789?fields=account_id%2Cbid_info%2Cbilling_event%2Cbid_amount%2Cbudget_remaining%2Ccampaign_id%2Ccreated_time%2Ccreative_sequence%2Cdaily_budget%2Cend_time%2Cid%2Cis_autobid%2Clifetime_budget%2Cname%2Coptimization_goal%2Cpromoted_object%2Crtb_flag%2Cstart_time%2Ctargeting%2Cupdated_time%2Cconfigured_status%2Ceffective_status"))
+				.andExpect(method(GET))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andRespond(withSuccess(jsonResource("ad-set"), MediaType.APPLICATION_JSON));
+		AdSet adSet = facebookAds.adSetOperations().getAdSet("700123456789");
+
+		// then
+		assertEquals("700123456789", adSet.getId());
+		assertEquals(targetingString, adSet.getTargetingString());
+		mockServer.verify();
+	}
+
 	@Test(expected = NotAuthorizedException.class)
 	public void getAdSet_unauthorized() throws Exception {
 		unauthorizedFacebookAds.adSetOperations().getAdSet("700123456789");
@@ -458,6 +566,34 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		mockServer.verify();
 	}
 
+	@Test
+	public void createAdSet_withTargetingString() throws Exception {
+		// given
+		String targetingString = "{\"targeting\":{\"geo_locations\":{\"cities\":[{\"country\":\"PL\",\"distance_unit\":\"mile\",\"key\":\"1869871\",\"name\":\"Poznan\",\"region\":\"Greater Poland Voivodeship\",\"region_id\": \"3007\"}]},\"interests\": [{\"id\": \"6003123299417\",\"name\": \"Computer science\"}],\"excluded_connections\": [{\"id\": \"1234567890\",\"name\": \"Some FanPage\"}]}}";
+		TargetingLocation location = new TargetingLocation();
+		location.setCountries(Arrays.asList("PL"));
+		Targeting targeting = new Targeting();
+		targeting.setGeoLocations(location);
+		AdSet adSet = new AdSet();
+		adSet.setTargetingString(targetingString);
+		adSet.setTargeting(targeting);
+		adSet.setName("Some ad set name");
+		adSet.setCampaignId("1");
+		String requestBody = "date_format=U&name=Some+ad+set+name&is_autobid=false&rtb_flag=false&targeting=%7B%22targeting%22%3A%7B%22geo_locations%22%3A%7B%22cities%22%3A%5B%7B%22country%22%3A%22PL%22%2C%22distance_unit%22%3A%22mile%22%2C%22key%22%3A%221869871%22%2C%22name%22%3A%22Poznan%22%2C%22region%22%3A%22Greater+Poland+Voivodeship%22%2C%22region_id%22%3A+%223007%22%7D%5D%7D%2C%22interests%22%3A+%5B%7B%22id%22%3A+%226003123299417%22%2C%22name%22%3A+%22Computer+science%22%7D%5D%2C%22excluded_connections%22%3A+%5B%7B%22id%22%3A+%221234567890%22%2C%22name%22%3A+%22Some+FanPage%22%7D%5D%7D%7D&campaign_id=1";
+
+		// when
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/act_123456789/adsets"))
+				.andExpect(method(POST))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andExpect(content().string(requestBody))
+				.andRespond(withSuccess("{\"id\": \"1234\"}", MediaType.APPLICATION_JSON));
+		String adSetId = facebookAds.adSetOperations().createAdSet("123456789", adSet);
+
+		// then
+		mockServer.verify();
+		assertEquals("1234", adSetId);
+	}
+
 	@Test(expected = NotAuthorizedException.class)
 	public void createAdSet_unauthorized() throws Exception {
 		unauthorizedFacebookAds.adSetOperations().createAdSet("123456789", new AdSet());
@@ -482,6 +618,32 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 		assertTrue(facebookAds.adSetOperations().updateAdSet("700123456789", adSet));
 		mockServer.verify();
+	}
+
+	@Test
+	public void updateAdSet_withTargetingString() throws Exception {
+		// given
+		String targetingString = "{\"targeting\":{\"geo_locations\":{\"cities\":[{\"country\":\"PL\",\"distance_unit\":\"mile\",\"key\":\"1869871\",\"name\":\"Poznan\",\"region\":\"Greater Poland Voivodeship\",\"region_id\": \"3007\"}]},\"interests\": [{\"id\": \"6003123299417\",\"name\": \"Computer science\"}],\"excluded_connections\": [{\"id\": \"1234567890\",\"name\": \"Some FanPage\"}]}}";
+		TargetingLocation location = new TargetingLocation();
+		location.setCountries(Arrays.asList("PL"));
+		Targeting targeting = new Targeting();
+		targeting.setGeoLocations(location);
+		AdSet adSet = new AdSet();
+		adSet.setTargetingString(targetingString);
+		adSet.setTargeting(targeting);
+		String requestBody = "date_format=U&is_autobid=false&rtb_flag=false&targeting=%7B%22targeting%22%3A%7B%22geo_locations%22%3A%7B%22cities%22%3A%5B%7B%22country%22%3A%22PL%22%2C%22distance_unit%22%3A%22mile%22%2C%22key%22%3A%221869871%22%2C%22name%22%3A%22Poznan%22%2C%22region%22%3A%22Greater+Poland+Voivodeship%22%2C%22region_id%22%3A+%223007%22%7D%5D%7D%2C%22interests%22%3A+%5B%7B%22id%22%3A+%226003123299417%22%2C%22name%22%3A+%22Computer+science%22%7D%5D%2C%22excluded_connections%22%3A+%5B%7B%22id%22%3A+%221234567890%22%2C%22name%22%3A+%22Some+FanPage%22%7D%5D%7D%7D";
+
+		// when
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/1234567890"))
+				.andExpect(method(POST))
+				.andExpect(header("Authorization", "OAuth someAccessToken"))
+				.andExpect(content().string(requestBody))
+				.andRespond(withSuccess("{\"success\": true}", MediaType.APPLICATION_JSON));
+		boolean updated = facebookAds.adSetOperations().updateAdSet("1234567890", adSet);
+
+		// then
+		mockServer.verify();
+		assertTrue(updated);
 	}
 
 	@Test(expected = NotAuthorizedException.class)

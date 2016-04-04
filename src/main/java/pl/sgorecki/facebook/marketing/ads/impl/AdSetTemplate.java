@@ -104,7 +104,12 @@ public class AdSetTemplate extends AbstractFacebookAdsOperations implements AdSe
 				e.printStackTrace();
 			}
 		}
-		if (adSet.getTargeting() != null) {
+		boolean targetingByString = false;
+		if (adSet.getTargetingString() != null) {
+			targetingByString = true;
+			data.set("targeting", adSet.getTargetingString());
+		}
+		if (!targetingByString && adSet.getTargeting() != null) {
 			try {
 				data.set("targeting", mapper.writeValueAsString(adSet.getTargeting()));
 			} catch (JsonProcessingException e) {

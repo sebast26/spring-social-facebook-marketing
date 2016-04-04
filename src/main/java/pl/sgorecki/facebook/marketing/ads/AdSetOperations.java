@@ -72,7 +72,8 @@ public interface AdSetOperations {
 	AdInsight getAdSetInsight(String adSetId);
 
 	/**
-	 * Creates an ad set in the given account
+	 * Creates an ad set in the given account. When targeting string is given in adSet object it value will be set instead
+	 * of targeting object.
 	 *
 	 * @param accountId the account id
 	 * @param adSet     the ad set object
@@ -84,7 +85,8 @@ public interface AdSetOperations {
 	String createAdSet(String accountId, AdSet adSet);
 
 	/**
-	 * Updates the ad set.
+	 * Updates the ad set. When targeting string is given in adSet object it value will be set instead
+	 * of targeting object.
 	 *
 	 * @param adSetId the id of the ad set
 	 * @param adSet   the ad set object
