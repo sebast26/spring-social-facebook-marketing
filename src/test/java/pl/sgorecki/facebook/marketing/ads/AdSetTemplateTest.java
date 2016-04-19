@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
@@ -365,7 +366,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSetInsights_emptyResults() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpc%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Cclicks%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("empty-insights"), MediaType.APPLICATION_JSON));
@@ -380,7 +381,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdSetInsights() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/700123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpc%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Cclicks%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-set-insights"), MediaType.APPLICATION_JSON));
@@ -392,6 +393,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(5, insight.getUniqueClicks());
 		assertEquals(0.66666666666667, insight.getCostPerTotalAction(), EPSILON);
 		assertEquals(0.4, insight.getCostPerUniqueClick(), EPSILON);
+		assertEquals(0.755, insight.getCpc(), EPSILON);
 		assertEquals(10.695187165775, insight.getCpm(), EPSILON);
 		assertEquals(10.869565217391, insight.getCpp(), EPSILON);
 		assertEquals(4.2780748663102, insight.getCtr(), EPSILON);
@@ -400,12 +402,13 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(187, insight.getImpressions());
 		assertEquals(184, insight.getUniqueImpressions());
 		assertEquals(184, insight.getReach());
+		assertEquals(123, insight.getClicks());
 		assertEquals(0, insight.getSocialClicks());
 		assertEquals(0, insight.getUniqueSocialClicks());
 		assertEquals(0, insight.getSocialImpressions());
 		assertEquals(0, insight.getUniqueSocialImpressions());
 		assertEquals(0, insight.getSocialReach());
-		assertEquals(2, insight.getSpend());
+		assertEquals(23.45, insight.getSpend(), EPSILON);
 		assertEquals(0, insight.getTotalActionValue());
 		assertEquals(3, insight.getTotalActions());
 		assertEquals(2, insight.getTotalUniqueActions());
@@ -521,23 +524,23 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		TargetingLocation excludedGeoLocations = new TargetingLocation();
 		excludedGeoLocations.setCountries(Arrays.asList("HU", "JP"));
 		excludedGeoLocations.setRegions(Arrays.asList("1122", "31415"));
-		excludedGeoLocations.setCities(Arrays.asList(new TargetingCityEntry("88997766", 12345, "mile")));
-		excludedGeoLocations.setZips(Arrays.asList("JP:44552"));
-		excludedGeoLocations.setLocationTypes(Arrays.asList(TargetingLocation.LocationType.HOME));
+		excludedGeoLocations.setCities(Collections.singletonList(new TargetingCityEntry("88997766", 12345, "mile")));
+		excludedGeoLocations.setZips(Collections.singletonList("JP:44552"));
+		excludedGeoLocations.setLocationTypes(Collections.singletonList(TargetingLocation.LocationType.HOME));
 		targeting.setExcludedGeoLocations(excludedGeoLocations);
 		// targeting cd.
 		targeting.setPageTypes(Arrays.asList(Targeting.PageType.DESKTOPFEED, Targeting.PageType.MOBILEFEED));
 		targeting.setConnections(Arrays.asList("123456789", "55442211"));
-		targeting.setExcludedConnections(Arrays.asList("33441122"));
-		targeting.setFriendsOfConnections(Arrays.asList("987654321"));
-		targeting.setInterests(Arrays.asList(new TargetingEntry(986123123123L, "Football")));
-		targeting.setBehaviors(Arrays.asList(new TargetingEntry(1L, "Some behavior")));
-		targeting.setEducationSchools(Arrays.asList(new TargetingEntry(10593123549L, "Poznan University of Technology")));
-		targeting.setEducationStatuses(Arrays.asList(Targeting.EducationStatus.MASTER_DEGREE));
-		targeting.setCollegeYears(Arrays.asList(Integer.valueOf(8)));
-		targeting.setEducationMajors(Arrays.asList(new TargetingEntry(12L, "Some major")));
-		targeting.setWorkEmployers(Arrays.asList(new TargetingEntry(43125L, "Super company")));
-		targeting.setWorkPositions(Arrays.asList(new TargetingEntry(11111L, "Developer")));
+		targeting.setExcludedConnections(Collections.singletonList("33441122"));
+		targeting.setFriendsOfConnections(Collections.singletonList("987654321"));
+		targeting.setInterests(Collections.singletonList(new TargetingEntry(986123123123L, "Football")));
+		targeting.setBehaviors(Collections.singletonList(new TargetingEntry(1L, "Some behavior")));
+		targeting.setEducationSchools(Collections.singletonList(new TargetingEntry(10593123549L, "Poznan University of Technology")));
+		targeting.setEducationStatuses(Collections.singletonList(Targeting.EducationStatus.MASTER_DEGREE));
+		targeting.setCollegeYears(Collections.singletonList(8));
+		targeting.setEducationMajors(Collections.singletonList(new TargetingEntry(12L, "Some major")));
+		targeting.setWorkEmployers(Collections.singletonList(new TargetingEntry(43125L, "Super company")));
+		targeting.setWorkPositions(Collections.singletonList(new TargetingEntry(11111L, "Developer")));
 		adSet.setTargeting(targeting);
 
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -571,7 +574,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		// given
 		String targetingString = "{\"targeting\":{\"geo_locations\":{\"cities\":[{\"country\":\"PL\",\"distance_unit\":\"mile\",\"key\":\"1869871\",\"name\":\"Poznan\",\"region\":\"Greater Poland Voivodeship\",\"region_id\": \"3007\"}]},\"interests\": [{\"id\": \"6003123299417\",\"name\": \"Computer science\"}],\"excluded_connections\": [{\"id\": \"1234567890\",\"name\": \"Some FanPage\"}]}}";
 		TargetingLocation location = new TargetingLocation();
-		location.setCountries(Arrays.asList("PL"));
+		location.setCountries(Collections.singletonList("PL"));
 		Targeting targeting = new Targeting();
 		targeting.setGeoLocations(location);
 		AdSet adSet = new AdSet();
@@ -625,7 +628,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		// given
 		String targetingString = "{\"targeting\":{\"geo_locations\":{\"cities\":[{\"country\":\"PL\",\"distance_unit\":\"mile\",\"key\":\"1869871\",\"name\":\"Poznan\",\"region\":\"Greater Poland Voivodeship\",\"region_id\": \"3007\"}]},\"interests\": [{\"id\": \"6003123299417\",\"name\": \"Computer science\"}],\"excluded_connections\": [{\"id\": \"1234567890\",\"name\": \"Some FanPage\"}]}}";
 		TargetingLocation location = new TargetingLocation();
-		location.setCountries(Arrays.asList("PL"));
+		location.setCountries(Collections.singletonList("PL"));
 		Targeting targeting = new Targeting();
 		targeting.setGeoLocations(location);
 		AdSet adSet = new AdSet();
@@ -805,7 +808,7 @@ public class AdSetTemplateTest extends AbstractFacebookAdsApiTest {
 		adSet.setEndTime(formatter.parse("2015-05-21 20:00:00"));
 		adSet.setName("Test AdSet");
 		TargetingLocation location = new TargetingLocation();
-		location.setCountries(Arrays.asList("PL"));
+		location.setCountries(Collections.singletonList("PL"));
 		Targeting targeting = new Targeting();
 		targeting.setGeoLocations(location);
 		adSet.setTargeting(targeting);
