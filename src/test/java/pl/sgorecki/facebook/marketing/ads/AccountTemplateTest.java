@@ -8,15 +8,12 @@ import pl.sgorecki.facebook.marketing.ads.AdAccount.Capability;
 import pl.sgorecki.facebook.marketing.ads.AdAccount.TaxStatus;
 import pl.sgorecki.facebook.marketing.ads.AdCampaign.BuyingType;
 import pl.sgorecki.facebook.marketing.ads.AdCampaign.CampaignObjective;
-import pl.sgorecki.facebook.marketing.ads.AdCampaign.CampaignStatus;
 import pl.sgorecki.facebook.marketing.ads.AdUser.AdUserPermission;
 import pl.sgorecki.facebook.marketing.ads.AdUser.AdUserRole;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
@@ -30,7 +27,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 	private static final String GET_ADACCOUNT_REQUEST_URI = "https://graph.facebook.com/v2.5/act_123456789?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdisable_reason%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cmin_campaign_group_spend_cap%2Cmin_daily_budget%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id%2Ctax_id_status%2Ctax_id_type";
 	private static final String GET_ADACCOUNTS_REQUEST_URI = "https://graph.facebook.com/v2.5/1234/adaccounts?fields=id%2Caccount_id%2Caccount_status%2Cage%2Camount_spent%2Cbalance%2Cbusiness_city%2Cbusiness_country_code%2Cbusiness_name%2Cbusiness_state%2Cbusiness_street%2Cbusiness_street2%2Cbusiness_zip%2Ccapabilities%2Ccreated_time%2Ccurrency%2Cdisable_reason%2Cend_advertiser%2Cfunding_source%2Cfunding_source_details%2Cis_personal%2Cmedia_agency%2Cmin_campaign_group_spend_cap%2Cmin_daily_budget%2Cname%2Coffsite_pixels_tos_accepted%2Cpartner%2Cspend_cap%2Ctimezone_id%2Ctimezone_name%2Ctimezone_offset_hours_utc%2Cusers%2Ctax_id%2Ctax_id_status%2Ctax_id_type";
 	private static final String GET_ADACCOUNT_USERS_REQUEST_URI = "https://graph.facebook.com/v2.5/act_123456789/users";
-	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.5/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement";
+	private static final String GET_ADACCOUNT_INSIGHT = "https://graph.facebook.com/v2.5/act_123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpc%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Cclicks%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement";
 
 
 	@Test
@@ -351,6 +348,7 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(5, insight.getUniqueClicks());
 		assertEquals(0.66666666666667, insight.getCostPerTotalAction(), EPSILON);
 		assertEquals(0.4, insight.getCostPerUniqueClick(), EPSILON);
+		assertEquals(0.71264705882353, insight.getCpc(), EPSILON);
 		assertEquals(10.695187165775, insight.getCpm(), EPSILON);
 		assertEquals(10.869565217391, insight.getCpp(), EPSILON);
 		assertEquals(4.2780748663102, insight.getCtr(), EPSILON);
@@ -359,12 +357,13 @@ public class AccountTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(187, insight.getImpressions());
 		assertEquals(184, insight.getUniqueImpressions());
 		assertEquals(184, insight.getReach());
+		assertEquals(13, insight.getClicks());
 		assertEquals(2, insight.getSocialClicks());
 		assertEquals(3, insight.getUniqueSocialClicks());
 		assertEquals(4, insight.getSocialImpressions());
 		assertEquals(5, insight.getUniqueSocialImpressions());
 		assertEquals(6, insight.getSocialReach());
-		assertEquals(2, insight.getSpend());
+		assertEquals(2.22, insight.getSpend(), EPSILON);
 		assertEquals(0, insight.getTotalActionValue());
 		assertEquals(3, insight.getTotalActions());
 		assertEquals(2, insight.getTotalUniqueActions());

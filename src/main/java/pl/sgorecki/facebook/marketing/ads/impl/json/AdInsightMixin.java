@@ -66,6 +66,9 @@ public abstract class AdInsightMixin {
 	@JsonProperty("cost_per_unique_click")
 	double costPerUniqueClick;
 
+	@JsonProperty("cpc")
+	double cpc;
+
 	@JsonProperty("cpm")
 	double cpm;
 
@@ -90,6 +93,9 @@ public abstract class AdInsightMixin {
 	@JsonProperty("reach")
 	int reach;
 
+	@JsonProperty("clicks")
+	int clicks;
+
 	@JsonProperty("social_clicks")
 	int socialClicks;
 
@@ -106,7 +112,7 @@ public abstract class AdInsightMixin {
 	int socialReach;
 
 	@JsonProperty("spend")
-	int spend;
+	double spend;
 
 	@JsonProperty("total_action_value")
 	int totalActionValue;

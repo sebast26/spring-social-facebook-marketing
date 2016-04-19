@@ -33,6 +33,7 @@ public class AdInsight {
 	private int uniqueClicks;
 	private double costPerTotalAction;
 	private double costPerUniqueClick;
+	private double cpc;
 	private double cpm;
 	private double cpp;
 	private double ctr;
@@ -41,12 +42,13 @@ public class AdInsight {
 	private int impressions;
 	private int uniqueImpressions;
 	private int reach;
+	private int clicks;
 	private int socialClicks;
 	private int uniqueSocialClicks;
 	private int socialImpressions;
 	private int uniqueSocialImpressions;
 	private int socialReach;
-	private int spend;
+	private double spend;
 	private int totalActionValue;
 	private int totalActions;
 	private int totalUniqueActions;
@@ -124,6 +126,10 @@ public class AdInsight {
 		return costPerUniqueClick;
 	}
 
+	public double getCpc() {
+		return cpc;
+	}
+
 	public double getCpm() {
 		return cpm;
 	}
@@ -156,6 +162,10 @@ public class AdInsight {
 		return reach;
 	}
 
+	public int getClicks() {
+		return clicks;
+	}
+
 	public int getSocialClicks() {
 		return socialClicks;
 	}
@@ -176,7 +186,7 @@ public class AdInsight {
 		return socialReach;
 	}
 
-	public int getSpend() {
+	public double getSpend() {
 		return spend;
 	}
 

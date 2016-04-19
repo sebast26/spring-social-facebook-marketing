@@ -397,7 +397,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignInsights_emptyResults() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpc%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Cclicks%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("empty-insights"), MediaType.APPLICATION_JSON));
@@ -412,7 +412,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 
 	@Test
 	public void getAdCampaignInsights() throws Exception {
-		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
+		mockServer.expect(requestTo("https://graph.facebook.com/v2.5/600123456789/insights?fields=account_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cunique_clicks%2Ccost_per_total_action%2Ccost_per_unique_click%2Ccpc%2Ccpm%2Ccpp%2Cctr%2Cunique_ctr%2Cfrequency%2Cimpressions%2Cunique_impressions%2Creach%2Cclicks%2Csocial_clicks%2Cunique_social_clicks%2Csocial_impressions%2Cunique_social_impressions%2Csocial_reach%2Cspend%2Ctotal_action_value%2Ctotal_actions%2Ctotal_unique_actions%2Cactions%2Cunique_actions%2Ccost_per_action_type%2Cinline_link_clicks%2Ccost_per_inline_link_click%2Cinline_post_engagement%2Ccost_per_inline_post_engagement"))
 				.andExpect(method(GET))
 				.andExpect(header("Authorization", "OAuth someAccessToken"))
 				.andRespond(withSuccess(jsonResource("ad-campaign-insights"), MediaType.APPLICATION_JSON));
@@ -423,6 +423,7 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(5, insight.getUniqueClicks());
 		assertEquals(0.66666666666667, insight.getCostPerTotalAction(), EPSILON);
 		assertEquals(0.4, insight.getCostPerUniqueClick(), EPSILON);
+		assertEquals(0.855, insight.getCpc(), EPSILON);
 		assertEquals(10.695187165775, insight.getCpm(), EPSILON);
 		assertEquals(10.869565217391, insight.getCpp(), EPSILON);
 		assertEquals(4.2780748663102, insight.getCtr(), EPSILON);
@@ -431,12 +432,13 @@ public class CampaignTemplateTest extends AbstractFacebookAdsApiTest {
 		assertEquals(187, insight.getImpressions());
 		assertEquals(184, insight.getUniqueImpressions());
 		assertEquals(184, insight.getReach());
+		assertEquals(26, insight.getClicks());
 		assertEquals(0, insight.getSocialClicks());
 		assertEquals(0, insight.getUniqueSocialClicks());
 		assertEquals(0, insight.getSocialImpressions());
 		assertEquals(0, insight.getUniqueSocialImpressions());
 		assertEquals(0, insight.getSocialReach());
-		assertEquals(2, insight.getSpend());
+		assertEquals(22.23, insight.getSpend(), EPSILON);
 		assertEquals(0, insight.getTotalActionValue());
 		assertEquals(3, insight.getTotalActions());
 		assertEquals(2, insight.getTotalUniqueActions());
